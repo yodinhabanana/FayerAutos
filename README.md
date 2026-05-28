@@ -41,9 +41,6 @@ Pré-requisitos
 Java JDK (versão 17 ou superior recomendada)
 Node.js & NPM/Yarn
 
-2. Fluxo de Autenticação (Acesso Seguro)
-Página de Login:
-
 ## Arquitetura de Telas (Front-end)
 
 A aplicação React será estruturada com as seguintes visualizações:
