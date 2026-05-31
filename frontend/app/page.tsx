@@ -9,7 +9,7 @@ export default function Home() {
 
   useEffect(() => {
     async function test() {
-      const result = await supabase.from("user_accounts").select("*");
+      const result = await supabase.from("user_roles").select("*");
 
       setData(result.data || []);
       setError(result.error);
