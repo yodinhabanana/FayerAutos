@@ -14,6 +14,22 @@ package backend.model;
 | `created_at` | `timestamp` |  Nullable |
  */
 
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Table(name = "order_items")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+
 public class OrderItem {
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "quantity")
+    private int quantity;
 }

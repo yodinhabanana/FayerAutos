@@ -13,6 +13,23 @@ package backend.model;
 | `delivery_address_id` | `int4` |  |
 | `created_at` | `timestamp` |  |
 */
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Table(name = "orders")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+
 public class Order {
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "status")
+    private String status;
 }
