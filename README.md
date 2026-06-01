@@ -20,8 +20,11 @@ Ambiente de Execução Front-end: Node.js
 Controle de Versão: Git e GitHub
 Comunicação: API REST via HTTPS
 
+- Acesso ao trello: https://trello.com/b/rZLcI98q/mapa-para-desenvolvimento-do-trabalho-de-engenharia-de-software
+
 - O acesso ao banco de dados pode ser feito via: https://supabase.com/dashboard/project/sajxqpcexotzocoivrgq
-OBS: Apenas o professor terá acesso, caso seja do desejo dele verificar o modelo entidade-relacional desenvolvido.
+
+OBS: Apenas o professor terá acesso, além dos membros do grupo
 
 ### Ferramentas adicionais/de suporte:
 Trello: gerenciamento de backlog, sprints e tarefas.
