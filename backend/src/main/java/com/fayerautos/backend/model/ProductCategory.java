@@ -1,4 +1,4 @@
-package backend.model;
+package com.fayerautos.backend.model;
 /*## Table `product_categories`
 
 ### Columns
@@ -14,4 +14,3 @@ package backend.model;
 public class ProductCategory {
     
 }
-    
