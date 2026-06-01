@@ -1,4 +1,4 @@
-package backend.model;
+package com.fayerautos.backend.model;
 
 /*## Table `contacts`
 
