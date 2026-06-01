@@ -13,12 +13,12 @@ Patrick Jose Fernantes (Developer + Tester)
 O ecossistema do projeto é dividido em uma arquitetura robusta e moderna:
 
 ### Infraestrutura
-Banco de Dados: Supabase (PostgreSQL)
-Front-end: React.js
-Back-end: Spring Boot (Java)
-Ambiente de Execução Front-end: Node.js
-Controle de Versão: Git e GitHub
-Comunicação: API REST via HTTPS
+- Banco de Dados: Supabase (PostgreSQL)
+- Front-end: React.js
+- Back-end: Spring Boot (Java)
+- Ambiente de Execução Front-end: Node.js
+- Controle de Versão: Git e GitHub
+- Comunicação: API REST via HTTPS
 
 - Acesso ao trello: https://trello.com/b/rZLcI98q/mapa-para-desenvolvimento-do-trabalho-de-engenharia-de-software
 
