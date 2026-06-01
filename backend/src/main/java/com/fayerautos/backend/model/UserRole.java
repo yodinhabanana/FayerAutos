@@ -1,33 +1,36 @@
-package backend.model;
+package com.fayerautos.backend.model;
 
-/*## Table `contacts`
+/*## Table `user_roles`
 
 ### Columns
 
 | Name | Type | Constraints |
 |------|------|-------------|
 | `id` | `int4` | Primary Identity |
-| `user_id` | `int4` |  |
-| `telephone` | `varchar` |  |
+| `role_name` | `varchar` |  Unique |
 | `created_at` | `timestamp` |  |
- */
+| `description` | `varchar` |  |
+*/
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "contacts")
+@Table(name = "user_roles")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 
-public class Contact {
+public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "telephone")
-    private String telephone;
+    @Column(name = "role_name")
+    private String roleName;
+
+    @Column(name = "description")
+    private String description;
 }

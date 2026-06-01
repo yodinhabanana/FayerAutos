@@ -1,35 +1,33 @@
-package backend.model;
+package com.fayerautos.backend.model;
 
-/*## Table `order_items`
+/*## Table `contacts`
 
 ### Columns
 
 | Name | Type | Constraints |
 |------|------|-------------|
 | `id` | `int4` | Primary Identity |
-| `order_id` | `int4` |  |
-| `product_id` | `int4` |  |
-| `quantity` | `int4` |  |
-| `unit_price` | `numeric` |  |
-| `created_at` | `timestamp` |  Nullable |
+| `user_id` | `int4` |  |
+| `telephone` | `varchar` |  |
+| `created_at` | `timestamp` |  |
  */
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "order_items")
+@Table(name = "contacts")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 
-public class OrderItem {
+public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "quantity")
-    private int quantity;
+    @Column(name = "telephone")
+    private String telephone;
 }
