@@ -1,7 +1,11 @@
 # FayerAutos
 
 Status do Projeto: Em Desenvolvimento (Fase de Prototipagem)
-O FayerAutos é uma plataforma de e-commerce (varejo virtual) especializada no comércio de autopeças. O projeto abrange desde a concepção do protótipo até as fases de desenvolvimento, testes, homologação e manutenção do sistema.
+-> O FayerAutos é uma plataforma de e-commerce (varejo virtual) especializada no comércio de autopeças. O projeto abrange desde a concepção do protótipo até as fases de desenvolvimento, testes, homologação e manutenção do sistema.
+
+## Por que estamos desenvolvendo?
+-> A ideia do projeto é que os usuários (clientes ou administradores) tenham acesso a um site de venda de autopeças, no qual os administradores poderão alterar preços, quantidade em estoque, etc e os clientes poderão
+comprar de maneira autenticada os itens disponíveis por meio de um site responsivo e seguro, oferecendo uma plataforma centralizada para venda e gerenciamento de produtos.
 
 ## DevOps:
 Sistema feito usando trello para gerenciar a sprint com os seguintes cargos aos membros:
