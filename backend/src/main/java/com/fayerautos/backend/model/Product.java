@@ -34,6 +34,9 @@ public class Product {
     @Column(name = "stock_quantity")
     private int stockQuantity;
 
+    @Column(name = "product_category_id")
+    private int productCategoryId;
+
     @Column(name = "product_name")
     private String productName;
 
