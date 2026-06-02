@@ -32,4 +32,13 @@ public class OrderItem {
 
     @Column(name = "quantity")
     private int quantity;
+
+    @Column(name = "order_id")
+    private int orderId;
+
+    @Column(name = "product_id")
+    private int productId;
+
+    @Column(name = "unit_price")
+    private Double unitPrice;
 }

@@ -54,4 +54,7 @@ public class UserAccount {
 
     @Column(name = "password_hash")
     private String passwordHash;
+
+    @Column(name = "user_role_id")
+    private int userRoleId;
 }

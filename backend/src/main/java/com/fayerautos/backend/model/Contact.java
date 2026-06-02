@@ -30,4 +30,7 @@ public class Contact {
 
     @Column(name = "telephone")
     private String telephone;
+
+    @Column(name = "user_id")
+    private String userId;
 }
