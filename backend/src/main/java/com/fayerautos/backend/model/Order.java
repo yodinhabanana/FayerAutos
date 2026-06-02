@@ -32,4 +32,13 @@ public class Order {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "order_code")
+    private String orderCode;
+
+    @Column(name = "customer_id")
+    private int customerId;
+
+    @Column(name = "delivery_address_id")
+    private int deliveryAddressId;
 }
