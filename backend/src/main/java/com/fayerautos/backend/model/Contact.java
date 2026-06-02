@@ -12,7 +12,22 @@ package com.fayerautos.backend.model;
 | `created_at` | `timestamp` |  |
  */
 
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Table(name = "contacts")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 
 public class Contact {
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "telephone")
+    private String telephone;
 }

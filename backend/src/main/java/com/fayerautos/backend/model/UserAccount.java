@@ -18,6 +18,40 @@ package com.fayerautos.backend.model;
 | `created_at` | `timestamp` |  |
  */
 
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Table(name = "user_accounts")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+
 public class UserAccount {
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "full_name")
+    private String fullName;
+
+    @Column(name = "birth_date")
+    private String birthDate;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "document")
+    private String document;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password_hash")
+    private String passwordHash;
 }
