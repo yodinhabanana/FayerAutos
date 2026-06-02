@@ -65,6 +65,9 @@ Pré-requisitos
 Java JDK (versão 21 ou superior recomendada)
 Node.js & NPM/Yarn
 
+-- Para iniciar backend: 
+> cd backend -> 
+
 ## Arquitetura de Telas (Front-end)
 A aplicação React será estruturada com as seguintes visualizações:
 
