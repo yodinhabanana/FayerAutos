@@ -59,11 +59,18 @@ Controle de Estoque: Sistema integrado diretamente ao Back-end para atualizaçã
 - Testes & Homologação: Validação de segurança, fluxos de compra e validação de estoque com o usuário final.
 - Manutenção: Planejamento de correções de bugs e melhorias contínuas.
 
-## Como Executar o Projeto (Breve)
-Nota: Esta seção será atualizada com os comandos exatos assim que a estrutura de pastas for consolidada.
+## Como Executar o Projeto
 Pré-requisitos
 Java JDK (versão 21 ou superior recomendada)
 Node.js & NPM/Yarn
+
+-- Para iniciar backend (no terminal): 
+> cd backend > mvn spring-boot:run
+
+-- Para iniciar o frontend (no terminal):
+> cd frontend > npm run dev ou yarn run dev
+
+-- Para entrar acessar depois de iniciar o backend + frontend: [localhost:3000](http://localhost:3000)
 
 ## Arquitetura de Telas (Front-end)
 A aplicação React será estruturada com as seguintes visualizações:

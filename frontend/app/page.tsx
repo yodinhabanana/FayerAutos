@@ -1,32 +1,29 @@
+// src/app/page.tsx
+
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { getProducts } from "@/services/productService";
 
 export default function Home() {
-  const [data, setData] = useState<any[]>([]);
-  const [error, setError] = useState<any>(null);
+  const [products, setProducts] = useState<any[]>([]);
 
   useEffect(() => {
-    async function test() {
-      const result = await supabase.from("user_roles").select("*");
-
-      setData(result.data || []);
-      setError(result.error);
-    }
-
-    test();
+    getProducts()
+      .then(setProducts)
+      .catch(console.error);
   }, []);
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Teste Supabase</h1>
+    <main>
+      <h1>FayerAutos</h1>
 
-      <h3>ERROR:</h3>
-      <pre>{JSON.stringify(error, null, 2)}</pre>
-
-      <h3>DATA:</h3>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
+      {products.map((product) => (
+        <div key={product.id}>
+          <h3>{product.productName}</h3>
+          <p>R$ {product.price}</p>
+        </div>
+      ))}
+    </main>
   );
 }
