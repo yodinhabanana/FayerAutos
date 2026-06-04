@@ -15,9 +15,9 @@ comprar de maneira autenticada os itens disponíveis por meio de um site respons
 ### DevOps:
 Sistema feito usando trello para gerenciar a sprint com os seguintes cargos aos membros:
 
-Mariana Pereira Lucas (Scrum Master + Developer)
-Karyna Morais Lins (Developer + Designer)
-Patrick Jose Fernantes (Developer + Tester)
+- Mariana Pereira Lucas (Scrum Master + Developer)
+- Karyna Morais Lins (Developer + Designer)
+- Patrick Jose Fernantes (Developer + Tester)
 
 ## 2. TECNOLOGIAS
 
@@ -38,8 +38,8 @@ O ecossistema do projeto é dividido em uma arquitetura robusta e moderna:
 OBS: Apenas o professor terá acesso, além dos membros do grupo
 
 ### Ferramentas adicionais/de suporte:
-Trello: gerenciamento de backlog, sprints e tarefas.
-Git/Github: Versionamento
+- Trello: gerenciamento de backlog, sprints e tarefas.
+- Git/Github: Versionamento
 
 ### Escopo do Projeto & Funcionalidades
 1. Autenticação e Segurança
