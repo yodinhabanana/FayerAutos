@@ -2,29 +2,25 @@
 
 ## 1. CONTEXTO DO PROBLEMA E SOLUÇÃO
 
-> Status do Projeto: *Em Desenvolvimento* (Fase de Prototipagem)
+> **Status do Projeto:** *Em Desenvolvimento* (Fase de Prototipagem)
 
 ### Por que estamos desenvolvendo?
 **O Problema:**
 O mercado de autopeças muitas vezes sofre com a descentralização de informações e a limitação geográfica das lojas físicas. A principal "dor" dos clientes é a dificuldade e a perda de tempo na busca por peças e componentes mecânicos específicos em diferentes lojas físicas. Para os lojistas, o problema reside na gestão de estoque ineficiente e na perda de oportunidades de vendas por não possuírem um canal digital estruturado, seguro e acessível 24 horas por dia.
 
-
 **A Solução:**
-O FayerAutos é uma plataforma de e-commerce (varejo virtual) especializada no comércio de autopeças. O projeto abrange desde a concepção do protótipo até as fases de desenvolvimento, testes, homologação e manutenção do sistema.
-
-A ideia do projeto é que os usuários (clientes ou administradores) tenham acesso a um site de venda de autopeças, no qual os administradores poderão alterar preços, quantidade em estoque, etc e os clientes poderão
+O *FayerAutos* é uma plataforma de e-commerce (varejo virtual) especializada no comércio de autopeças. O projeto abrange desde a concepção do protótipo até as fases de desenvolvimento, testes, homologação e manutenção do sistema. A ideia é que os usuários (clientes ou administradores) tenham acesso a um site de venda de autopeças, no qual os administradores poderão alterar preços, quantidade em estoque, etc e os clientes poderão
 comprar de maneira autenticada os itens disponíveis por meio de um site responsivo e seguro, oferecendo uma plataforma centralizada para venda e gerenciamento de produtos.
 
 ### DevOps:
 Sistema feito usando trello para gerenciar a sprint com os seguintes cargos aos membros:
 
-Mariana Pereira Lucas(Scrum Master + Developer)
+Mariana Pereira Lucas (Scrum Master + Developer)
 Karyna Morais Lins (Developer + Designer)
 Patrick Jose Fernantes (Developer + Tester)
 
 ## 2. TECNOLOGIAS
 
-### Tecnologias e Ferramentas
 O ecossistema do projeto é dividido em uma arquitetura robusta e moderna:
 
 ### Infraestrutura
@@ -75,7 +71,7 @@ Para garantir a qualidade da entrega, o projeto segue as seguintes etapas:
 ## 4. INSTRUÇÕES PARA DEVS
 
 ### Clonando o Repositório
--- Clone o projeto na sua máquina abrindo o terminal e executando o seguinte comando:
+Clone o projeto na sua máquina abrindo o terminal e executando o seguinte comando:
 ```
 git clone https://github.com/yodinhabanana/FayerAutos
 ```
@@ -113,9 +109,9 @@ Este projeto está organizado nas pastas descritas abaixo com as seguintes final
         *   **`src/main/resources/`**: Arquivos de configuração.
 *   **`frontend/`**: Aplicação React.
     *   **`frontend/src/`**: Código principal do frontend.
-        *   **`src/main/components/`**: Componentes reutilizáveis da interface do usuário.
-        *   **`src/main/services/`**: Funções para realizar chamadas à API do backend.
-        *   **`src/main/types/`**: Definições de tipagem global.
+        *   **`src/components/`**: Componentes reutilizáveis da interface do usuário.
+        *   **`src/services/`**: Funções para realizar chamadas à API do backend.
+        *   **`src/types/`**: Definições de tipagem global.
 
 ### Arquitetura de Telas (Front-end)
 A aplicação React será estruturada com as seguintes visualizações:
