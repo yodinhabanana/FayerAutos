@@ -11,6 +11,7 @@ comprar de maneira autenticada os itens disponíveis por meio de um site respons
 
 ### DevOps:
 Sistema feito usando trello para gerenciar a sprint com os seguintes cargos aos membros:
+
 Mariana Pereira Lucas(Scrum Master + Developer)
 Karyna Morais Lins (Developer + Designer)
 Patrick Jose Fernantes (Developer + Tester)
@@ -57,7 +58,7 @@ Controle de Estoque: Sistema integrado diretamente ao Back-end para atualizaçã
 - Controle de acesso por autenticação de usuário.
 
 ### Ciclo de Desenvolvimento (Do Ciclo de Vida do Software)
-- Para garantir a qualidade da entrega, o projeto segue as seguintes etapas:
+Para garantir a qualidade da entrega, o projeto segue as seguintes etapas:
 - Prototipagem: Design de interface e arquitetura inicial do sistema.
 - Desenvolvimento: Codificação do Front-end (React) e regras de negócio/APIs (Java).
 - Testes & Homologação: Validação de segurança, fluxos de compra e validação de estoque com o usuário final.
@@ -75,14 +76,18 @@ git clone https://github.com/yodinhabanana/FayerAutos
 
 ### Como Executar o Projeto
 -- Pré-requisitos:
-Java JDK (versão 21 ou superior recomendada)
-Node.js & NPM/Yarn
+- Java JDK (versão 21 ou superior recomendada)
+- Node.js & NPM/Yarn
 
--- Para iniciar backend (no terminal): 
-> cd backend > mvn spring-boot:run
+-- Para iniciar backend (no terminal):
+```
+cd backend > mvn spring-boot:run
+```
 
 -- Para iniciar o frontend (no terminal):
-> cd frontend > npm run dev ou yarn run dev
+```
+cd frontend > npm run dev ou yarn run dev
+```
 
 ### Acessando o Sistema
 -- Para entrar acessar depois de iniciar o backend + frontend: [localhost:3000](http://localhost:3000)
@@ -93,7 +98,6 @@ Este projeto está organizado nas pastas descritas abaixo com as seguintes final
 
 ### Estrutura de Pastas
 
-================
 *   **`backend/`**: API Spring Boot.
     *   **`backend/src/`**: Código principal do backend.
         *   **`src/main/controller/`**: Endpoints da API REST (recebem as requisições HTTP).
@@ -106,7 +110,6 @@ Este projeto está organizado nas pastas descritas abaixo com as seguintes final
         *   **`src/main/components/`**: Componentes reutilizáveis da interface do usuário.
         *   **`src/main/services/`**: Funções para realizar chamadas à API do backend.
         *   **`src/main/types/`**: Definições de tipagem global.
-=================
 
 ### Arquitetura de Telas (Front-end)
 A aplicação React será estruturada com as seguintes visualizações:
