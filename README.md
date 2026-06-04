@@ -52,9 +52,9 @@ Carrinho de Compras: Fluxo dinâmico de adição, remoção e gerenciamento de i
 Controle de Estoque: Sistema integrado diretamente ao Back-end para atualização em tempo real de mercadorias, entradas e saídas.
 
 ### Autenticação e Segurança
-- Cadastro de usuários.
-- Login por e-mail e senha.
-- Criptografia de senhas utilizando BCrypt.
+- Cadastro de usuários;
+- Login por e-mail e senha;
+- Criptografia de senhas utilizando BCrypt;
 - Controle de acesso por autenticação de usuário.
 
 ### Ciclo de Desenvolvimento (Do Ciclo de Vida do Software)
@@ -75,22 +75,22 @@ git clone https://github.com/yodinhabanana/FayerAutos
 ```
 
 ### Como Executar o Projeto
--- Pré-requisitos:
+Pré-requisitos:
 - Java JDK (versão 21 ou superior recomendada)
 - Node.js & NPM/Yarn
 
--- Para iniciar backend (no terminal):
+Para iniciar backend (no terminal):
 ```
 cd backend > mvn spring-boot:run
 ```
 
--- Para iniciar o frontend (no terminal):
+Para iniciar o frontend (no terminal):
 ```
 cd frontend > npm run dev ou yarn run dev
 ```
 
 ### Acessando o Sistema
--- Para entrar acessar depois de iniciar o backend + frontend: [localhost:3000](http://localhost:3000)
+Com o backend e frotend rodando simultaneamente, abra seu navegador e digite o URL: http://localhost:3000
 
 ## 5. ORGANIZAÇÃO DO PROJETO
 
