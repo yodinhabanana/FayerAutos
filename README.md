@@ -84,7 +84,7 @@ git clone https://github.com/yodinhabanana/FayerAutos
 ### Configuração do Banco de Dados
 * O banco de dados do projeto já está devidamente criado, configurado e hospedado em nuvem através do **Supabase**.
 * **Não é necessário** instalar o banco de dados PostgreSQL localmente na sua máquina.
-* As chaves e parâmetros de acesso à nossa instância na nuvem já estão embutidas no arquivo de configurações padrão (`backend/src/main/resources/application.properties`). 
+* As chaves e parâmetros de acesso à nossa instância na nuvem já estão no arquivo de configurações padrão (`backend/src/main/resources/application.properties`). 
 
 ### Como Inicializar e Rodar o Backend
 1.  Abra o terminal do seu computador;
