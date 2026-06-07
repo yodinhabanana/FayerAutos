@@ -77,9 +77,9 @@ Certifique-se de possuir as seguintes ferramentas instaladas no seu computador:
 Você pode obter os arquivos do projeto de duas formas simples:
 * **Via Arquivo ZIP:** No topo desta página do GitHub, clique no botão verde **Code** e depois selecione **Download ZIP**. Após a conclusão do download, extraia o arquivo em uma pasta de sua escolha.
 * **Via Prompt de Comando/Terminal:** Se você possuir o Git configurado, basta executar o comando abaixo na sua pasta de projetos:
-    ```
-    git clone https://github.com/yodinhabanana/FayerAutos
-    ```
+```
+git clone https://github.com/yodinhabanana/FayerAutos
+```
 
 ### Configuração do Banco de Dados
 * O banco de dados do projeto já está devidamente criado, configurado e hospedado em nuvem através do **Supabase**.
@@ -89,9 +89,9 @@ Você pode obter os arquivos do projeto de duas formas simples:
 ### Como Inicializar e Rodar o Backend
 1.  Abra o terminal do seu computador;
 2.  Navegue até a pasta `backend` que está localizada dentro do diretório do projeto baixado:
-    ```
-    cd FayerAutos/backend
-    ```
+```
+cd FayerAutos/backend
+```
 3.  Execute o comando para compilar e iniciar o servidor Spring Boot:
     * *Se você possuir o Maven global instalado:* `mvn spring-boot:run`
     * *Caso utilize o wrapper incluso no projeto:*
@@ -100,7 +100,7 @@ Você pode obter os arquivos do projeto de duas formas simples:
 4.  Mantenha essa janela do terminal aberta.
 
 ### Como Inicializar e Rodar o Frontend
-1.  Abra uma **nova janela ou aba** do terminal (não feche o terminal do back-end).
+1.  Abra uma **nova janela ou aba** do terminal (não feche o terminal do back-end);
 2.  Navegue até a pasta `frontend` do projeto:
 ```
 cd FayerAutos/frontend
@@ -117,7 +117,7 @@ npm run dev
 ### Acessando a Aplicação
 Com o backend e o frontend rodando simultaneamente, abra o seu navegador de internet e digite a seguinte URL na barra de endereços: **[http://localhost:3000](http://localhost:3000)**
 
-*Nota: Caso o terminal do front-end informe uma porta diferente (como `http://localhost:5173`), utilize o endereço fornecido por ele.*
+*Nota: Caso o terminal do frontend informe uma porta diferente (como `http://localhost:5173`), utilize o endereço fornecido por ele.*
 
 ## 4. INSTRUÇÕES PARA DEVS
 
@@ -131,10 +131,10 @@ git clone https://github.com/yodinhabanana/FayerAutos
 
 ### Como Executar o Projeto
 Pré-requisitos:
-- Java JDK (versão 21 ou superior recomendada)
-- Node.js & NPM/Yarn
+- **Java JDK** (versão 21 ou superior recomendada)
+- **Node.js** & **NPM/Yarn**
 
-Para iniciar backend (no terminal):
+Para iniciar `backend` (no terminal):
 
 Entre na pasta:
 
@@ -148,7 +148,7 @@ Execute o seguinte comando:
 mvn spring-boot:run
 ```
 
-Para iniciar o frontend (no terminal):
+Para iniciar o `frontend` (no terminal):
 
 Entre na pasta:
 
@@ -166,9 +166,9 @@ npm run dev
 
 
 ### Acessando o Sistema
-Com o backend e frotend rodando simultaneamente, abra seu navegador e digite o URL: **[http://localhost:3000](http://localhost:3000)**
+Com o backend e frontend rodando simultaneamente, abra seu navegador e digite o URL: **[http://localhost:3000](http://localhost:3000)**
 
-*Nota: Caso o terminal do front-end informe uma porta diferente (como `http://localhost:5173`), utilize o endereço fornecido por ele.*
+*Nota: Caso o terminal do frontend informe uma porta diferente (como `http://localhost:5173`), utilize o endereço fornecido por ele.*
 
 ## 5. ORGANIZAÇÃO DO PROJETO
 
