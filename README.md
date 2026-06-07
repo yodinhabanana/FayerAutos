@@ -79,7 +79,7 @@ Você pode obter os arquivos do projeto de duas formas simples:
 * **Via Arquivo ZIP:** No topo desta página do GitHub, clique no botão verde **Code** e depois selecione **Download ZIP**. Após a conclusão do download, extraia o arquivo em uma pasta de sua escolha.
 * **Via Prompt de Comando/Terminal:** Se você possuir o Git configurado, basta executar o comando abaixo na sua pasta de projetos:
     ```
-    git clone [https://github.com/yodinhabanana/FayerAutos](https://github.com/yodinhabanana/FayerAutos)
+    git clone https://github.com/yodinhabanana/FayerAutos
     ```
 
 ### Configuração do Banco de Dados
@@ -127,7 +127,7 @@ Com o backend e o frontend rodando simultaneamente, abra o seu navegador de inte
 Execute o comando abaixo na sua pasta de projetos:
 
 ```
-git clone [https://github.com/yodinhabanana/FayerAutos](https://github.com/yodinhabanana/FayerAutos)
+git clone https://github.com/yodinhabanana/FayerAutos
 ```
 
 ### Como Executar o Projeto
@@ -137,9 +137,13 @@ Pré-requisitos:
 
 Para iniciar backend (no terminal):
 
+Entre na pasta:
+
     ```
     cd backend 
     ```
+
+Execute o seguinte comando: 
 
     ```
     mvn spring-boot:run
@@ -147,9 +151,12 @@ Para iniciar backend (no terminal):
 
 Para iniciar o frontend (no terminal):
 
+Entre na pasta:
+
     ```
     cd frontend
     ```
+Execute o seguinte comando: 
 
     ```
     npm run dev
