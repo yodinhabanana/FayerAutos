@@ -103,17 +103,17 @@ Você pode obter os arquivos do projeto de duas formas simples:
 ### Como Inicializar e Rodar o Frontend
 1.  Abra uma **nova janela ou aba** do terminal (não feche o terminal do back-end).
 2.  Navegue até a pasta `frontend` do projeto:
-    ```
-    cd FayerAutos/frontend
-    ```
+```
+cd FayerAutos/frontend
+```
 3.  Instale todas as bibliotecas necessárias executando o gerenciador de pacotes:
-    ```
-    npm install
-    ```
+```
+npm install
+```
 4.  Após a finalização do processo de instalação, inicie o servidor web do front-end com o seguinte comando:
-    ```
-    npm run dev
-    ```
+```
+npm run dev
+```
 
 ### Acessando a Aplicação
 Com o backend e o frontend rodando simultaneamente, abra o seu navegador de internet e digite a seguinte URL na barra de endereços: **[http://localhost:3000](http://localhost:3000)**
@@ -139,28 +139,30 @@ Para iniciar backend (no terminal):
 
 Entre na pasta:
 
-    ```
-    cd backend 
-    ```
+```
+cd backend
+```
 
 Execute o seguinte comando: 
 
-    ```
-    mvn spring-boot:run
-    ```
+```
+mvn spring-boot:run
+```
 
 Para iniciar o frontend (no terminal):
 
 Entre na pasta:
 
-    ```
-    cd frontend
-    ```
+```
+cd frontend
+```
+
 Execute o seguinte comando: 
 
-    ```
-    npm run dev
-    ```
+```
+npm run dev
+```
+
     # ou caso use o yarn: yarn run dev
 
 
