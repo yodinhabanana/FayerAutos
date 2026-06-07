@@ -31,14 +31,13 @@ O ecossistema do projeto é dividido em uma arquitetura robusta e moderna:
 - Controle de Versão: Git e GitHub
 - Comunicação: API REST via HTTPS
 
-- Acesso ao trello: https://trello.com/b/rZLcI98q/mapa-para-desenvolvimento-do-trabalho-de-engenharia-de-software
-
 - O acesso ao banco de dados pode ser feito via: https://supabase.com/dashboard/project/sajxqpcexotzocoivrgq
 
 OBS: Apenas o professor terá acesso, além dos membros do grupo
 
 ### Ferramentas adicionais/de suporte:
 - Trello: gerenciamento de backlog, sprints e tarefas.
+Acesso ao trello: https://trello.com/b/rZLcI98q/mapa-para-desenvolvimento-do-trabalho-de-engenharia-de-software
 - Git/Github: Versionamento
 
 ### Escopo do Projeto & Funcionalidades
@@ -168,6 +167,8 @@ npm run dev
 
 ### Acessando o Sistema
 Com o backend e frotend rodando simultaneamente, abra seu navegador e digite o URL: **[http://localhost:3000](http://localhost:3000)**
+
+*Nota: Caso o terminal do front-end informe uma porta diferente (como `http://localhost:5173`), utilize o endereço fornecido por ele.*
 
 ## 5. ORGANIZAÇÃO DO PROJETO
 
