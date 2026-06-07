@@ -68,12 +68,66 @@ Para garantir a qualidade da entrega, o projeto segue as seguintes etapas:
 
 ## 3. INSTRUÇÕES PARA USO
 
+Se você não faz parte do time de desenvolvimento, mas deseja rodar a aplicação em sua máquina para testá-la, avaliar as funcionalidades ou simular o uso por parte de um cliente/administrador, siga atentamente o guia passo a passo detalhado abaixo:
+
+### Como Executar o Projeto
+Certifique-se de possuir as seguintes ferramentas instaladas no seu computador:
+1.  **Java JDK (versão 21 ou superior):** Essencial para executar o servidor back-end.
+2.  **Node.js (versão LTS recomendada):** Necessário para executar o servidor de desenvolvimento do front-end.
+
+Você pode obter os arquivos do projeto de duas formas simples:
+* **Via Arquivo ZIP:** No topo desta página do GitHub, clique no botão verde **Code** e depois selecione **Download ZIP**. Após a conclusão do download, extraia o arquivo em uma pasta de sua escolha.
+* **Via Prompt de Comando/Terminal:** Se você possuir o Git configurado, basta executar o comando abaixo na sua pasta de projetos:
+    ```
+    git clone [https://github.com/yodinhabanana/FayerAutos](https://github.com/yodinhabanana/FayerAutos)
+    ```
+
+### Configuração do Banco de Dados
+* O banco de dados do projeto já está devidamente criado, configurado e hospedado em nuvem através do **Supabase**.
+* **Não é necessário** instalar o banco de dados PostgreSQL localmente na sua máquina.
+* As chaves e parâmetros de acesso à nossa instância na nuvem já estão embutidas no arquivo de configurações padrão (`backend/src/main/resources/application.properties`). 
+
+### Como Inicializar e Rodar o Backend
+1.  Abra o terminal do seu computador;
+2.  Navegue até a pasta `backend` que está localizada dentro do diretório do projeto baixado:
+    ```
+    cd FayerAutos/backend
+    ```
+3.  Execute o comando para compilar e iniciar o servidor Spring Boot:
+    * *Se você possuir o Maven global instalado:* `mvn spring-boot:run`
+    * *Caso utilize o wrapper incluso no projeto:*
+        * **No Windows:** `mvnw.cmd spring-boot:run`
+        * **No Linux/macOS:** `./mvnw spring-boot:run`
+4.  Mantenha essa janela do terminal aberta.
+
+### Como Inicializar e Rodar o Frontend
+1.  Abra uma **nova janela ou aba** do terminal (não feche o terminal do back-end).
+2.  Navegue até a pasta `frontend` do projeto:
+    ```
+    cd FayerAutos/frontend
+    ```
+3.  Instale todas as bibliotecas necessárias executando o gerenciador de pacotes:
+    ```
+    npm install
+    ```
+4.  Após a finalização do processo de instalação, inicie o servidor web do front-end com o seguinte comando:
+    ```
+    npm run dev
+    ```
+
+### Acessando a Aplicação
+Com o backend e o frontend rodando simultaneamente, abra o seu navegador de internet e digite a seguinte URL na barra de endereços: **[http://localhost:3000](http://localhost:3000)**
+
+*Nota: Caso o terminal do front-end informe uma porta diferente (como `http://localhost:5173`), utilize o endereço fornecido por ele.*
+
 ## 4. INSTRUÇÕES PARA DEVS
 
 ### Clonando o Repositório
-Clone o projeto na sua máquina abrindo o terminal e executando o seguinte comando:
+
+Execute o comando abaixo na sua pasta de projetos:
+
 ```
-git clone https://github.com/yodinhabanana/FayerAutos
+git clone [https://github.com/yodinhabanana/FayerAutos](https://github.com/yodinhabanana/FayerAutos)
 ```
 
 ### Como Executar o Projeto
@@ -82,17 +136,29 @@ Pré-requisitos:
 - Node.js & NPM/Yarn
 
 Para iniciar backend (no terminal):
-```
-cd backend > mvn spring-boot:run
-```
+
+    ```
+    cd backend 
+    ```
+
+    ```
+    mvn spring-boot:run
+    ```
 
 Para iniciar o frontend (no terminal):
-```
-cd frontend > npm run dev ou yarn run dev
-```
+
+    ```
+    cd frontend
+    ```
+
+    ```
+    npm run dev
+    ```
+    # ou caso use o yarn: yarn run dev
+
 
 ### Acessando o Sistema
-Com o backend e frotend rodando simultaneamente, abra seu navegador e digite o URL: http://localhost:3000
+Com o backend e frotend rodando simultaneamente, abra seu navegador e digite o URL: **[http://localhost:3000](http://localhost:3000)**
 
 ## 5. ORGANIZAÇÃO DO PROJETO
 
