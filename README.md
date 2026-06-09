@@ -88,7 +88,7 @@ git clone https://github.com/yodinhabanana/FayerAutos
 
 ### Como Inicializar e Rodar o Backend
 1.  Abra o terminal do seu computador;
-2.  Navegue até a pasta `backend` que está localizada dentro do diretório do projeto baixado:
+2.  Navegue até a pasta `backend` que está localizada no diretório do projeto baixado:
 ```
 cd FayerAutos/backend
 ```
@@ -188,6 +188,7 @@ Este projeto está organizado nas pastas descritas abaixo com as seguintes final
         *   **`src/components/`**: Componentes reutilizáveis da interface do usuário.
         *   **`src/services/`**: Funções para realizar chamadas à API do backend.
         *   **`src/types/`**: Definições de tipagem global.
+*   **`requisitos`**: Arquivos PDF referentes aos requisitos do projeto.
 
 ### Arquitetura de Telas (Front-end)
 A aplicação React será estruturada com as seguintes visualizações:
