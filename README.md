@@ -188,7 +188,8 @@ Este projeto está organizado nas pastas descritas abaixo com as seguintes final
         *   **`src/components/`**: Componentes reutilizáveis da interface do usuário.
         *   **`src/services/`**: Funções para realizar chamadas à API do backend.
         *   **`src/types/`**: Definições de tipagem global.
-*   **`requisitos`**: Arquivos PDF referentes aos requisitos do projeto.
+*   **`padroes-adotados`**: Padrões utilizados ao escrever os requisitos do projeto.
+*   **`requisitos`**: Arquivo PDF referente aos requisitos do projeto e outros.
 
 ### Arquitetura de Telas (Front-end)
 A aplicação React será estruturada com as seguintes visualizações:
