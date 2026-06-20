@@ -6,7 +6,6 @@ import com.fayerautos.backend.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -17,8 +16,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RequestMapping("/api/products")
 public class ProductController {
     
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping
     public List<Product> getProducts(){

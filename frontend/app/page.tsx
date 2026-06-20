@@ -1,29 +1,23 @@
-// src/app/page.tsx
-
-"use client";
-
-import { useEffect, useState } from "react";
-import { getProducts } from "@/services/productService";
+import CategoryBar from "./components/home/CategoryBar";
+import ProductGrid from "./components/home/ProductGrid";
 
 export default function Home() {
-  const [products, setProducts] = useState<any[]>([]);
-
-  useEffect(() => {
-    getProducts()
-      .then(setProducts)
-      .catch(console.error);
-  }, []);
-
   return (
     <main>
-      <h1>FayerAutos</h1>
+      <header>
+        <h1>FayerAutos</h1>
+      </header>
 
-      {products.map((product) => (
-        <div key={product.id}>
-          <h3>{product.productName}</h3>
-          <p>R$ {product.price}</p>
-        </div>
-      ))}
+      <CategoryBar />
+
+      <section>
+        <h2>Banner Principal</h2>
+      </section>
+
+      <section>
+        <h2>Mais vendidos</h2>
+        <ProductGrid />
+      </section>
     </main>
   );
 }
