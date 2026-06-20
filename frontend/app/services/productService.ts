@@ -9,5 +9,5 @@ export async function getProducts(): Promise<Product[]> {
     throw new Error("Erro ao buscar produtos");
   }
 
-  return response.json();
+  return await response.json();
 }

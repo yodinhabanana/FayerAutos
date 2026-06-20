@@ -1,14 +1,24 @@
+"use client"
+import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import { getProducts } from "@/services/productService";
+import { Product } from "@/types/Product";
 
 export default function ProductGrid() {
-  const products = [
-    { id: 1, productName: "Pastilha", price: 89.9 },
-    { id: 2, productName: "Disco", price: 120 },
-  ];
+
+  const[products, setProducts] = useState<Product[]>();
+
+  useEffect(() => {
+    getProducts()
+    .then((products) => setProducts(products))
+    },
+    []
+  );
+  console.log(products);
 
   return (
     <div className="product-grid">
-      {products.map(product => (
+      {products?.map(product => (
         <ProductCard
           key={product.id}
           product={product}
