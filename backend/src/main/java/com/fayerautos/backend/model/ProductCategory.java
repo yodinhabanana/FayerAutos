@@ -32,4 +32,5 @@ public class ProductCategory {
 
     @Column(name = "description")
     private String description;
+
 }
