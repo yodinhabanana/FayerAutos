@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Header() {
   return (
     <header className="bg-[#111827] text-white">
@@ -6,8 +8,8 @@ export default function Header() {
           ☰
         </button>
 
-        <h1 className="text-3xl font-bold text-red-600">
-          FayerAutos
+        <h1 className="-p-12 text-3xl font-bold text-red-600">
+          <Image src="/logo2.png" alt="FayerAutos" width={150} height={50} />
         </h1>
 
         <input
