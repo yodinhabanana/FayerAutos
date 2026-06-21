@@ -4,8 +4,6 @@ import Header from "@/components/cart/Header";
 
 export default function CartPage() {
 
-     
-
   return (
     <main className="flex flex-col justify-between min-h-screen bg-white">
         <Header />

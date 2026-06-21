@@ -1,23 +1,34 @@
-import CategoryBar from "./components/home/CategoryBar";
-import ProductGrid from "./components/home/ProductGrid";
+import Header from "@/components/home/Header";
+import HeroBanner from "@/components/home/HeroBanner";
+import Features from "@/components/home/Features";
+import Brands from "@/components/home/Brands";
+import CategoryBar from "@/components/home/CategoryBar";
+import ProductGrid from "@/components/home/ProductGrid";
+import Footer from "@/components/home/Footer";
 
 export default function Home() {
   return (
-    <main>
-      <header>
-        <h1>FayerAutos</h1>
-      </header>
+    <main className="min-h-screen bg-white">
+      <Header />
 
       <CategoryBar />
 
-      <section>
-        <h2>Banner Principal</h2>
-      </section>
+      
+      <HeroBanner />
 
-      <section>
-        <h2>Mais vendidos</h2>
+      <Features />
+
+      <Brands />
+
+      <section className="max-w-7xl mx-auto px-6 py-12">
+        <h2 className="text-4xl font-bold mb-8">
+          Mais vendidos
+        </h2>
+
         <ProductGrid />
       </section>
+
+      <Footer />
     </main>
   );
 }
