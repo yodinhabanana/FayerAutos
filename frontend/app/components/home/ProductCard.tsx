@@ -8,8 +8,7 @@ import Image from "next/image";
 import { jwtDecode } from "jwt-decode";
 import { MyJwtPayload } from "@/types/Auth";
 import Link from "next/dist/client/link";
-import AlterProduct from "@/components/product/EditProductModal"; // Garanta que o import está correto para a sua pasta
-
+import AlterProduct from "@/components/product/EditProductModal";
 interface ProductCardProps {
   product: Product;
 }
@@ -78,7 +77,7 @@ export default function ProductCard({
       {/* Imagem */}
       <div className="mb-6 h-[200px] w-full relative">
         <Image
-          src={product.imageUrl ?? null} // ou o nome correto do seu campo
+          src={product.imageUrl ?? null}
           alt={product.productName}
           fill
           className="object-cover rounded-md"
