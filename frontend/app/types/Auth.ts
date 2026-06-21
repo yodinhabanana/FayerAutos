@@ -3,4 +3,5 @@ export type MyJwtPayload = {
   role: number;
   exp: number;
   iat: number;
+  username: string;
 };
