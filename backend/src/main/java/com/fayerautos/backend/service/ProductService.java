@@ -21,6 +21,10 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<Product> getActiveProducts() {
+        return productRepository.findActiveProducts();
+    }
+
     public Product update(Integer id, ProductUpdateRequest req) {
 
         Product product = productRepository.findById(id)
@@ -33,6 +37,23 @@ public class ProductService {
         product.setSku(req.getSku());
         product.setStockQuantity(req.getStockQuantity());
         product.setProductCategoryId(req.getProductCategoryId());
+
+        return productRepository.save(product);
+    }
+
+    public void delete(Integer id){
+        Product product = productRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        productRepository.delete(product);
+
+    }
+
+    public Product deleteLogic(Integer id){
+        Product product = productRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        product.setActive(false);
 
         return productRepository.save(product);
     }

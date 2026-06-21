@@ -24,15 +24,43 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-[#111827] text-white w-full border-b border-gray-800">
+    <header className="bg-[#1A1B21] text-white w-full border-b border-gray-800">
       {/* Container fluido que ocupa toda a tela de ponta a ponta com espaçamento lateral */}
       <div className="w-full px-4 md:px-8 py-3.5 flex items-center justify-between gap-4 md:gap-12">
         
+              {/* ÁREA DE AUTENTICAÇÃO DINÂMICA */}
+          {!user ? (
+            <div className="flex items-center gap-4">
+              <Link 
+                href="/" 
+                className="px-6 py-2 rounded text-white text-[14px] font-medium hover:bg-red-700 transition-all shadow-sm"
+              >
+                Voltar
+              </Link>
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              {user.role === 1 && (
+                <Link 
+                  href="/stock-management"
+                  className="bg-blue-600 px-4 py-2 rounded text-[14px] font-medium hover:bg-blue-700 transition-all text-white shadow-sm"
+                >
+                  Gestão
+                </Link>
+              )}
+
+              <button
+                onClick={logout}
+                className="bg-[#B31212] px-4 py-2 rounded text-[14px] font-medium hover:bg-red-700 transition-all text-white shadow-sm"
+              >
+                Sair
+              </button>
+            </div>
+          )}
+
+
         {/* BLOCO DA ESQUERDA: Menu Hambúrguer + Logo FayerAutos */}
         <div className="flex items-center gap-4 md:gap-6 shrink-0">
-          <button className="text-xl bg-[#B31212] w-10 h-10 flex items-center justify-center rounded-md hover:bg-red-700 transition-all text-white font-bold">
-            ☰
-          </button>
 
           <Link href="/" className="block">
             <Image 
@@ -57,35 +85,6 @@ export default function Header() {
             </svg>
           </Link>
 
-          {/* ÁREA DE AUTENTICAÇÃO DINÂMICA */}
-          {!user ? (
-            <div className="flex items-center gap-4">
-              <Link 
-                href="/login" 
-                className="bg-[#B31212] px-6 py-2 rounded text-white text-[14px] font-medium hover:bg-red-700 transition-all shadow-sm"
-              >
-                Entrar
-              </Link>
-            </div>
-          ) : (
-            <div className="flex items-center gap-3">
-              {user.role === 1 && (
-                <Link 
-                  href="/stock-management"
-                  className="bg-blue-600 px-4 py-2 rounded text-[14px] font-medium hover:bg-blue-700 transition-all text-white shadow-sm"
-                >
-                  Gestão
-                </Link>
-              )}
-
-              <button
-                onClick={logout}
-                className="bg-[#B31212] px-4 py-2 rounded text-[14px] font-medium hover:bg-red-700 transition-all text-white shadow-sm"
-              >
-                Sair
-              </button>
-            </div>
-          )}
         </div>
 
       </div>

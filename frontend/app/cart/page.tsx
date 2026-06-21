@@ -59,17 +59,12 @@ export default function CartPage() {
       <section className="bg-[#191C24] text-white py-5 w-full border-b border-gray-800">
         <div className="w-full px-4 md:px-8 flex items-center justify-between gap-6">
           
-          {/* BLOCO DA ESQUERDA: Logo colada no canto esquerdo */}
+           {/* BLOCO DA DIREITA: Botão Voltar colado no canto direito */}
           <div className="shrink-0">
-            <Link href="/" className="block">
-              <Image 
-                src="/logo2.png"                
-                alt="FayerAutos" 
-                width={145} 
-                height={45} 
-                className="object-contain"
-                priority
-              />
+            <Link href="/">
+              <button className="hover:bg-red-700 text-white font-medium px-6 py-2 rounded text-[16px] transition-all shadow-sm">
+                Voltar
+              </button>
             </Link>
           </div>
 
@@ -98,15 +93,6 @@ export default function CartPage() {
               </span>
             </div>
 
-          </div>
-
-          {/* BLOCO DA DIREITA: Botão Voltar colado no canto direito */}
-          <div className="shrink-0">
-            <Link href="/">
-              <button className="bg-[#B31212] hover:bg-red-700 text-white font-medium px-6 py-2 rounded text-[16px] transition-all shadow-sm">
-                Voltar
-              </button>
-            </Link>
           </div>
 
         </div>

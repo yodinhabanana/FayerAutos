@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class ProductController {
 
     @GetMapping
     public List<Product> getProducts(){
-        return productService.getAllProducts();   
+        return productService.getActiveProducts();
     }
 
     @PutMapping("/{id}")
@@ -39,6 +40,15 @@ public class ProductController {
         return productService.update(id, request);
     }
 
+    @DeleteMapping("/del/{id}")
+    public void delete(@PathVariable Integer id){
+        productService.delete(id);
+    }
+
+    @PutMapping("/deleteLogic/{id}")
+        public Product deleteLogic(@PathVariable Integer id) {
+            return productService.deleteLogic(id);
+    }
 
 }   
     

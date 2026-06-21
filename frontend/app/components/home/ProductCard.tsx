@@ -80,6 +80,19 @@ export default function ProductCard({
     }
   }
 
+  async function handleDeleteProduct(){
+    try{
+      await fetch(`http://localhost:8080/api/products/deleteLogic/${product.id}`, {
+        method: "PUT",
+      });
+      alert("Produto deletado!");
+      setOpen(false);
+    } catch(err){
+      alert("Erro ao deletar pedido!");
+    }
+
+  }
+
   async function handleUpdateProduct() {
     try {
       await fetch(`http://localhost:8080/api/products/${product.id}`, {
@@ -267,10 +280,16 @@ export default function ProductCard({
 
             <button 
               onClick={handleUpdateProduct} 
-              className="w-full bg-[#991212] hover:bg-[#800f0f] text-white font-medium py-3 rounded-lg text-lg transition-all"
+              className="w-full bg-[#21B584] hover:bg-[#5C21B5] text-white font-medium py-4 rounded-lg text-lg transition-all"
             >
               Salvar alterações
             </button>
+            
+            <button
+              onClick={handleDeleteProduct}
+              className="w-full bg-[#1A1B21] hover:bg-[#800f0f] text-white font-medium py-4 rounded-lg text-lg transition-all mt-4"
+            > Deletar produto</button>
+
 
           </div>
         </div>
