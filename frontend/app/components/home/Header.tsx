@@ -1,26 +1,106 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import { MyJwtPayload } from "@/types/Auth";
 
 export default function Header() {
+  const [user, setUser] = useState<MyJwtPayload | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setUser(jwtDecode<MyJwtPayload>(token));
+    }
+  }, []);
+
+  function logout() {
+    localStorage.removeItem("token");
+    setUser(null);
+    window.location.reload();
+  }
+
   return (
-    <header className="bg-[#111827] text-white">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center gap-6">
-        <button className="text-2xl">
-          ☰
-        </button>
+    <header className="bg-[#1A1B21] text-white w-full border-b border-gray-800">
+      {/* Container fluido que ocupa toda a tela de ponta a ponta com espaçamento lateral */}
+      <div className="w-full px-4 md:px-8 py-3.5 flex items-center justify-between gap-4 md:gap-12">
+        
+        {/* BLOCO DA ESQUERDA: Menu Hambúrguer + Logo FayerAutos */}
+        <div className="flex items-center gap-4 md:gap-6 shrink-0">
+          <button className="text-xl w-10 h-10 flex items-center justify-center rounded-md hover:bg-red-700 transition-all text-white font-bold">
+            ☰
+          </button>
 
-        <h1 className="-p-12 text-3xl font-bold text-red-600">
-          <Image src="/logo2.png" alt="FayerAutos" width={150} height={50} />
-        </h1>
+          <Link href="/" className="block">
+            <Image 
+              src="/logo2.png" 
+              alt="FayerAutos" 
+              width={145} 
+              height={45} 
+              className="object-contain"
+              priority
+            />
+          </Link>
+        </div>
 
-        <input
-          type="text"
-          placeholder="O que você procura?"
-          className="flex-1 rounded-full px-5 py-3 text-black bg-white"
-        />
+        {/* BLOCO DO MEIO: Barra de Busca Centralizada com Lupa integrada */}
+        <div className="flex-1 max-w-3xl relative">
+          <input
+            type="text"
+            placeholder="O que você procura?"
+            className="w-full rounded-full pl-6 pr-12 py-2.5 text-black bg-white outline-none placeholder-gray-500 text-[15px] font-normal"
+          />
+          {/* Lupa cinza exatamente posicionada dentro da barra */}
+          <button className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </button>
+        </div>
 
-        <button>⚙️</button>
+        {/* BLOCO DA DIREITA: Carrinho de compras + Botão Entrar/Cadastrar */}
+        <div className="flex items-center gap-6 md:gap-8 shrink-0 justify-end">
+          {/* Carrinho de compras minimalista em SVG igual ao e-commerce moderno */}
+          <Link href="/cart" className="text-white hover:text-gray-300 transition-colors">
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </Link>
 
-        <button>🛒</button>
+          {/* ÁREA DE AUTENTICAÇÃO DINÂMICA */}
+          {!user ? (
+            <div className="flex items-center gap-4">
+              <Link 
+                href="/login" 
+                className="bg-[#B31212] px-6 py-2 rounded text-white text-[14px] font-medium hover:bg-red-700 transition-all shadow-sm"
+              >
+                Entrar
+              </Link>
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              {user.role === 1 && (
+                <Link 
+                  href="/stock-management"
+                  className="bg-blue-600 px-4 py-2 rounded text-[14px] font-medium hover:bg-blue-700 transition-all text-white shadow-sm"
+                >
+                  Gestão
+                </Link>
+              )}
+
+              <button
+                onClick={logout}
+                className="bg-[#B31212] px-4 py-2 rounded text-[14px] font-medium hover:bg-red-700 transition-all text-white shadow-sm"
+              >
+                Sair
+              </button>
+            </div>
+          )}
+        </div>
+
       </div>
     </header>
   );

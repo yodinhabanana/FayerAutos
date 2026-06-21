@@ -52,5 +52,7 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
+    @Column(name = "active")
+    private boolean active;
 
 }

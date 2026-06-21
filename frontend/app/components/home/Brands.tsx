@@ -1,25 +1,23 @@
+import Image from "next/image";
+
 export default function Brands() {
   const brands = [
-    "BOSCH",
-    "FRASLE",
-    "EXEDY",
-    "SKF",
-    "CONTINENTAL"
+    "/brands/BOSCH.png", 
+    "/brands/FRASLE.png",
+    "/brands/EXEDY.png",
+    "/brands/SKF.png",
+    "/brands/CONTINENTAL.png"
   ];
 
   return (
     <section className="py-12">
-      <h2 className="text-center text-4xl font-bold mb-10">
-        As melhores marcas
-      </h2>
-
       <div className="flex justify-center gap-12 flex-wrap">
         {brands.map((brand) => (
           <div
             key={brand}
             className="text-3xl font-bold text-red-600"
           >
-            {brand}
+            <Image src={brand} alt="Brand" width={180} height={100} />
           </div>
         ))}
       </div>
