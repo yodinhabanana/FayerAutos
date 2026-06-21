@@ -23,17 +23,32 @@ export default function EditProductModal({
   onUpdate,
   onDelete,
 }: EditProductModalProps) {
-  // Inicializa os estados internos com os dados atuais do produto recebido por prop
+  // Inicializa os estados com os dados do produto (ou fallback se nulo)
   const [name, setName] = useState(product.productName);
-  const [price, setPrice] = useState(product.price);
+  const [price, setPrice] = useState<string | number>(product.price);
   const [description, setDescription] = useState(product.description ?? "");
   const [stockQuantity, setStockQuantity] = useState(product.stockQuantity ?? 0);
   const [brand, setBrand] = useState(product.brand ?? "");
   const [category, setCategory] = useState(product.productCategoryId ?? "");
-  const [imageUrl, setImageUrl] = useState("");
+  
+  // CORREÇÃO: Agora puxa a URL que já existe no produto (ajuste 'product.url' se o nome no seu tipo for diferente, ex: imageUrl)
+  const [imageUrl, setImageUrl] = useState(product.imageUrl ?? null); 
 
   const [categoriesList, setCategoriesList] = useState<Category[]>([]);
   const [loadingCategories, setLoadingCategories] = useState(false);
+
+  // Efeito para atualizar os campos do formulário sempre que o produto selecionado mudar
+  useEffect(() => {
+    if (product) {
+      setName(product.productName);
+      setPrice(product.price);
+      setDescription(product.description ?? "");
+      setStockQuantity(product.stockQuantity ?? 0);
+      setBrand(product.brand ?? "");
+      setCategory(product.productCategoryId ?? "");
+      setImageUrl(product.imageUrl ?? null); // Sincroniza a imagem aqui também
+    }
+  }, [product]);
 
   // Busca as categorias apenas quando a modal for aberta
   useEffect(() => {
@@ -48,7 +63,7 @@ export default function EditProductModal({
           }
         } catch (error) {
           console.error("Erro ao buscar categorias:", error);
-        } {
+        } finally {
           setLoadingCategories(false);
         }
       }
@@ -59,15 +74,15 @@ export default function EditProductModal({
   if (!isOpen) return null;
 
   const handleSave = () => {
-    // Monta o objeto com os estados locais modificados e envia para a função do pai
     onUpdate({
       productName: name,
-      price: Number(price),
+      price: Number(price), // Converte para número na hora de salvar
       description: description,
-      stockQuantity: stockQuantity,
+      stockQuantity: Number(stockQuantity),
       productCategoryId: category,
       brand: brand,
       sku: product.sku,
+      url: imageUrl, // Envia a nova URL digitada
     });
   };
 
@@ -144,13 +159,14 @@ export default function EditProductModal({
             />
           </div>
 
-          {/* Preço */}
+          {/* Preço - Mudado para aceitar texto temporariamente para facilitar digitação de pontos/vírgulas */}
           <div className="flex flex-col gap-1">
             <label className="text-[16px] font-medium text-black">Preço (R$)</label>
             <input
+              type="text"
               className="w-full bg-[#EAEAEA] border border-gray-300 rounded-lg p-2.5 text-black outline-none focus:border-gray-400"
-              value={price ?? 0}
-              onChange={(e) => setPrice(Number(e.target.value))}
+              value={price ?? ""}
+              onChange={(e) => setPrice(e.target.value)}
             />
           </div>
 
@@ -158,6 +174,7 @@ export default function EditProductModal({
           <div className="flex flex-col gap-1">
             <label className="text-[16px] font-medium text-black">Estoque</label>
             <input
+              type="number"
               className="w-full bg-[#EAEAEA] border border-gray-300 rounded-lg p-2.5 text-black outline-none focus:border-gray-400"
               value={stockQuantity}
               onChange={(e) => setStockQuantity(Number(e.target.value))}
