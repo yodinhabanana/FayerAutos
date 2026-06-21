@@ -55,7 +55,7 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
     }
 
     try {
-      const response = await fetch("http://localhost:8080/api/products", {
+      const response = await fetch("http://localhost:8080/api/products/create-new-product", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,7 +115,7 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
             <label className="text-[16px] font-medium text-black">Nome</label>
             <input
               type="text"
-              className="w-full bg-[#EAEAEA] border border-gray-300 rounded-lg p-2.5 text-black捷 outline-none focus:border-gray-400"
+              className="w-full bg-[#EAEAEA] border border-gray-300 rounded-lg p-2.5 text-black outline-none focus:border-gray-400"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
