@@ -3,4 +3,8 @@ export interface Product {
   productName: string;
   price: number;
   stockQuantity: number;
+  brand: string;
+  sku: string;
+  description?: string;
+  productCategoryId: number;
 }
