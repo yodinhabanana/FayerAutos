@@ -16,79 +16,114 @@
 ```mermaid
 flowchart LR
 
-    subgraph FRONT["Frontend - Next.js"]
+    subgraph SISTEMA["Sistema"]
 
-        APP["app"]
+        subgraph FRONT["Frontend - Next.js"]
 
-        PAGES["pages
-        Home
-        Login
-        Register
-        Cart
-        Stock Management"]
+            APP["app"]
 
-        COMPONENTS["components
-        home
-        cart
-        product
-        layout
-        stock-management"]
+            PAGES["pages
+            Home
+            Login
+            Register
+            Cart
+            Stock Management"]
 
-        SERVICES_F["services
-        authService
-        cartService
-        productService
-        categoryService"]
+            COMPONENTS["components
+            home
+            cart
+            product
+            layout
+            stock-management"]
 
-        TYPES["types
-        Product
-        Order
-        OrderItem
-        Auth
-        ProductCategory"]
+            SERVICES_F["services
+            authService
+            cartService
+            productService
+            categoryService"]
 
-        UTILS_F["utils
-        supabase"]
+            TYPES["types
+            Product
+            Order
+            OrderItem
+            Auth
+            ProductCategory"]
 
-        APP -->|define rotas| PAGES
+            UTILS_F["utils
+            supabase"]
 
-        PAGES -->|usa componentes| COMPONENTS
-        PAGES -->|consome serviços| SERVICES_F
-        PAGES -->|utiliza tipos| TYPES
+            APP -.->|"define rotas"| PAGES
 
-        COMPONENTS -->|busca dados| SERVICES_F
-        COMPONENTS -->|tipa propriedades| TYPES
+            PAGES -.->|"utiliza componentes"| COMPONENTS
+            PAGES -.->|"consome serviços"| SERVICES_F
+            PAGES -.->|"utiliza tipos"| TYPES
 
-        SERVICES_F -->|utiliza modelos| TYPES
-        SERVICES_F -->|utiliza utilitários| UTILS_F
+            COMPONENTS -.->|"chama lógica"| SERVICES_F
+            COMPONENTS -.->|"aplica tipos"| TYPES
 
+            SERVICES_F -.->|"formata requisições"| TYPES
+            SERVICES_F -.->|"utiliza utilitários"| UTILS_F
+        end
+
+        subgraph BACK["Backend - Spring Boot"]
+
+            CONTROLLER["controller
+            AuthController
+            ProductController
+            ProductCategoryController
+            OrderItemController"]
+
+            SERVICE["service
+            AuthService
+            CartService
+            ProductService
+            ProductCategoryService
+            JwtService"]
+
+            REPOSITORY["repository
+            ProductRepository
+            ProductCategoryRepository
+            OrderItemRepository
+            UserRepository"]
+
+            MODEL["model
+            Product
+            ProductCategory
+            Order
+            OrderItem
+            UserAccount
+            Address
+            Contact"]
+
+            DTO["dto
+            LoginRequest
+            LoginResponse
+            RegisterRequest
+            ProductCreateRequest
+            ProductUpdateRequest
+            AddToCartRequest"]
+
+            CONFIG["config
+            SecurityConfig
+            SecurityBeans"]
+
+            RESOURCES["resources
+            application.properties"]
+
+            CONTROLLER -.->|"chama regras de negócio"| SERVICE
+            CONTROLLER -.->|"valida entrada / formata"| DTO
+
+            SERVICE -.->|"acessa dados"| REPOSITORY
+            SERVICE -.->|"manipula entidades"| MODEL
+            SERVICE -.->|"usa configurações"| CONFIG
+
+            REPOSITORY -.->|"mapeia entidades"| MODEL
+            CONFIG -.->|"lê propriedades"| RESOURCES
+        end
+        
+        DB[("Banco de Dados\nPostgreSQL")]
+
+        SERVICES_F ==>|"HTTP/REST\nJSON"| CONTROLLER
+
+        REPOSITORY -.->|"persiste / consulta"| DB
     end
-
-    subgraph BACK["Backend - Spring Boot"]
-
-        CONTROLLER["controller"]
-        SERVICE["service"]
-        REPOSITORY["repository"]
-        MODEL["model"]
-        DTO["dto"]
-        CONFIG["config"]
-        RESOURCES["resources"]
-
-        CONTROLLER -->|recebe/retorna dados| DTO
-        CONTROLLER -->|delega regras de negócio| SERVICE
-
-        SERVICE -->|acessa persistência| REPOSITORY
-        SERVICE -->|manipula entidades| MODEL
-        SERVICE -->|utiliza autenticação JWT| CONFIG
-
-        REPOSITORY -->|persiste entidades| MODEL
-
-        CONFIG -->|carrega configurações| RESOURCES
-
-    end
-
-    DB[("Banco de Dados\nPostgreSQL")]
-
-    SERVICES_F ==>|HTTP/REST JSON| CONTROLLER
-
-    REPOSITORY -->|persiste/consulta| DB
