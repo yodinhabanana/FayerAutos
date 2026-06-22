@@ -10,7 +10,7 @@
 ## Diagrama de pacotes:
 
 - Por imagem:
-![alt text](image-1.png)
+![alt text](image-2.png)
 
 - Codificação:
 ```mermaid
@@ -82,7 +82,6 @@ flowchart LR
         SERVICE -->|utiliza autenticação JWT| CONFIG
 
         REPOSITORY -->|persiste entidades| MODEL
-        REPOSITORY -->|persiste/consulta| DB
 
         CONFIG -->|carrega configurações| RESOURCES
 
@@ -91,3 +90,5 @@ flowchart LR
     DB[("Banco de Dados\nPostgreSQL")]
 
     SERVICES_F ==>|HTTP/REST JSON| CONTROLLER
+
+    REPOSITORY -->|persiste/consulta| DB
