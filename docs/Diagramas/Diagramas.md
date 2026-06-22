@@ -1,12 +1,14 @@
 # Diagramas pedidos para o projeto
+
 - Os diagramas foram feitos utilizando plantuml e mermaid:
 
 ## Diagrama de classe:
 
 - Por imagem:
-![alt text](image.png)
+  ![alt text](image.png)
 
 - Codificação
+
 ```plantuml
 @startuml
 hide circle
@@ -89,12 +91,47 @@ Product "1" -- "0..*" OrderItem : compoe >
 @enduml
 ```
 
+## Diagrama de implantação:
+
+@startuml
+!theme plain
+left to right direction
+skinparam componentStyle uml2
+skinparam nodeBackgroundColor #F9F9F9
+
+node "Dispositivo do Cliente" <<PC / Smartphone>> {
+node "Navegador Web" <<Execution Environment>> {
+component "FayerAutos Front-end\n(React.js)" as SPA
+}
+}
+
+node "Servidor Front-end" <<Node.js Environment>> {
+component "Hospedagem da Aplicação\n(Servidor Web)" as FrontServer
+}
+
+node "Servidor Back-end" <<Servidor>> {
+node "Java Runtime (JRE 21+)" <<Execution Environment>> {
+artifact "FayerAutos API\n(Spring Boot .jar)" as API
+}
+}
+
+cloud "Supabase Cloud" <<DBaaS>> {
+database "Banco de Dados\n(PostgreSQL)" as Database
+}
+
+' Relacionamentos
+SPA ..> FrontServer : <<HTTP / HTTPS>>\n1. Download de assets/UI
+SPA <..> API : <<HTTPS>>\n2. Consome API REST (JSON)
+API <..> Database : <<TCP/IP>>\n3. Conexão / Queries
+@enduml
+
 ## Diagrama de pacotes:
 
 - Por imagem:
-![alt text](image-1.png)
+  ![alt text](image-1.png)
 
 - Codificação:
+
 ```mermaid
 flowchart LR
 
@@ -202,7 +239,7 @@ flowchart LR
             REPOSITORY -.->|"mapeia entidades"| MODEL
             CONFIG -.->|"lê propriedades"| RESOURCES
         end
-        
+
         DB[("Banco de Dados\nPostgreSQL")]
 
         SERVICES_F ==>|"HTTP/REST\nJSON"| CONTROLLER
@@ -214,12 +251,13 @@ flowchart LR
 ## Diagramas de sequencia:
 
 ### Criar Produto
+
 - Por imagem:
-![alt text](DS_criar_produto.png)
+  ![alt text](DS_criar_produto.png)
 
 - Codificação:
 
-``` plantuml
+```plantuml
 @startuml
 autonumber
 skinparam responseMessageBelowArrow true
@@ -286,12 +324,13 @@ deactivate Page
 ```
 
 ### Alterar Produto
+
 - Por imagem:
-![alt text](DS_editar_produtos.png)
+  ![alt text](DS_editar_produtos.png)
 
 - Codificação:
 
-``` plantuml
+```plantuml
 @startuml
 autonumber
 skinparam responseMessageBelowArrow true
@@ -366,11 +405,13 @@ deactivate Modal
 ```
 
 ### Consultar Produtos do Catálogo
+
 - Por imagem:
-![alt text](DS_consultar_produtos.png)
+  ![alt text](DS_consultar_produtos.png)
 
 - Codificação:
-``` plantuml
+
+```plantuml
 @startuml
 autonumber
 skinparam responseMessageBelowArrow true
@@ -430,11 +471,13 @@ deactivate Page
 ```
 
 ### Excluir Produto
+
 - Por imagem:
-![alt text](DS_excluir_produto.png)
+  ![alt text](DS_excluir_produto.png)
 
 - Codificação:
-``` plantuml
+
+```plantuml
 @startuml
 autonumber
 skinparam responseMessageBelowArrow true
@@ -499,11 +542,13 @@ deactivate Page
 ```
 
 ### Finalizar Pedido
+
 - Por imagem:
-![alt text](DS_finalizar_pedido.png)
+  ![alt text](DS_finalizar_pedido.png)
 
 - Codificação:
-``` plantuml
+
+```plantuml
 @startuml
 autonumber
 skinparam responseMessageBelowArrow true
@@ -592,11 +637,13 @@ deactivate View
 ```
 
 ### Consultar Detalhes do Pedido
+
 - Por imagem:
-![alt text](DS_consultar_detalhes_pedido.png)
+  ![alt text](DS_consultar_detalhes_pedido.png)
 
 - Codificação:
-``` plantuml
+
+```plantuml
 @startuml
 autonumber
 skinparam responseMessageBelowArrow true
@@ -653,11 +700,13 @@ deactivate View
 ```
 
 ### Atualizar Status do Pedido
+
 - Por imagem:
-![alt text](DS_atualizar_status_pedido.png)
+  ![alt text](DS_atualizar_status_pedido.png)
 
 - Codificação:
-``` plantuml
+
+```plantuml
 @startuml
 autonumber
 skinparam responseMessageBelowArrow true
@@ -725,11 +774,13 @@ deactivate View
 ```
 
 ### Cancelar Pedido
+
 - Por imagem:
-![alt text](DS_cancelar_pedido.png)
+  ![alt text](DS_cancelar_pedido.png)
 
 - Codificação:
-``` plantuml
+
+```plantuml
 @startuml
 autonumber
 skinparam responseMessageBelowArrow true
