@@ -14,5 +14,6 @@ public class ProductUpdateRequest {
     private String brand;
     private String sku;
     private Integer productCategoryId;
+    private String imageUrl;
     
 }

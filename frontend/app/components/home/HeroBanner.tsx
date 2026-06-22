@@ -34,7 +34,7 @@ const IMAGES = [
           width={1000} 
           height={550} 
           quality={100}
-          priority // Ajuda a carregar a primeira imagem mais rápido
+          priority
         />
       </section>
     );
