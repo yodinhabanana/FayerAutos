@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import OrderItemsGrid from "@/components/cart/OrderItemsGrid";
-import Footer from "@/components/home/Footer";
-import Header from "@/components/cart/Header";
+import Footer from "@/components/global/Footer";
+import Header from "@/components/global/NoSearchHeader";
 import Image from "next/image";
 
 // Interface auxiliar para os itens do carrinho (ajuste conforme seu tipo real)

@@ -9,7 +9,7 @@ import HeroBanner from "@/components/home/HeroBanner";
 import Features from "@/components/home/Features";
 import Brands from "@/components/home/Brands";
 import ProductGrid from "@/components/home/ProductGrid";
-import Footer from "@/components/home/Footer";
+import Footer from "@/components/global/Footer";
 
 export default function Home() {
   return (

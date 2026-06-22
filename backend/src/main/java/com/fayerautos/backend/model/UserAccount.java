@@ -49,10 +49,10 @@ public class UserAccount {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-    @Column(name = "password_hash")
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
     @Column(name = "user_role_id")

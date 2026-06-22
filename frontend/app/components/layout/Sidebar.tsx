@@ -78,7 +78,7 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
         {/* Rodapé do menu lateral */}
         <div className="mt-auto pt-6 border-t border-gray-800 text-sm text-gray-400">
           {user ? (
-            <p>Logado como: <span className="text-white font-medium">{user.username || "Usuário"}</span></p>
+            <p>Logado como: <span className="text-white font-medium">{user.username}</span></p>
           ) : (
             <p>Bem-vindo à FayerAutos!</p>
           )}

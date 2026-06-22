@@ -25,6 +25,15 @@ public class AuthService {
         RegisterRequest request
     ) {
 
+        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
+            throw new RuntimeException("Username já existe");
+        }
+
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new RuntimeException("Email já existe");
+        }
+
+
         UserAccount user =
             UserAccount.builder()
                 .fullName(request.getFullName())
@@ -40,6 +49,7 @@ public class AuthService {
                 )
                 .userRoleId(1)
                 .build();
+
 
         return userRepository.save(user);
     }
