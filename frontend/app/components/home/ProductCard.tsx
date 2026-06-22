@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { addToCart } from "@/services/cartService";
 import { Product } from "@/types/Product";
 
+import Image from "next/image";
 import { jwtDecode } from "jwt-decode";
 import { MyJwtPayload } from "@/types/Auth";
 import Link from "next/dist/client/link";
-import AlterProduct from "@/components/product/EditProductModal"; // Garanta que o import está correto para a sua pasta
-
+import AlterProduct from "@/components/product/EditProductModal";
 interface ProductCardProps {
   product: Product;
 }
@@ -42,7 +42,6 @@ export default function ProductCard({
     }
   }
 
-  // Passamos a lógica de deletar para a modal executar
   async function handleDeleteProduct(){
     try{
       await fetch(`http://localhost:8080/api/products/deleteLogic/${product.id}`, {
@@ -55,7 +54,6 @@ export default function ProductCard({
     }
   }
 
-  // Passamos a lógica de atualizar recebendo o novo body da modal
   async function handleUpdateProduct(updatedBody: any) {
     try {
       await fetch(`http://localhost:8080/api/products/${product.id}`, {
@@ -72,13 +70,19 @@ export default function ProductCard({
       alert("Erro ao atualizar produto");
     }
   }
-
   return (
-    // Ajustei aqui também para w-full max-w-[330px] para não espremer os cards!
+
     <div className="w-full max-w-[330px] rounded-xl bg-[#ececec] p-7">
 
       {/* Imagem */}
-      <div className="mb-6 h-[200px] w-full bg-[#d3d3d3]" />
+      <div className="mb-6 h-[200px] w-full relative">
+        <Image
+          src={product.imageUrl ?? null}
+          alt={product.productName}
+          fill
+          className="object-cover rounded-md"
+        />
+      </div>
 
       {/* Nome */}
       <h3 className="text-[22px] font-bold text-black">
@@ -119,7 +123,6 @@ export default function ProductCard({
         Adicionar ao carrinho
       </button>
       
-      {/* 🛠️ CORREÇÃO: Envolvendo com fragmentos (<> e </>) para aceitar os dois componentes */}
       {user?.role === 1 && (
         <>
           <button 

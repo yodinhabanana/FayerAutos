@@ -55,4 +55,6 @@ public class Product {
     @Column(name = "active")
     private boolean active;
 
+    @Column(name = "url_image")
+    private String imageUrl;
 }

@@ -38,6 +38,7 @@ public class ProductService {
         product.setSku(req.getSku());
         product.setStockQuantity(req.getStockQuantity());
         product.setProductCategoryId(req.getProductCategoryId());
+        product.setImageUrl(req.getImageUrl());
 
         return productRepository.save(product);
     }

@@ -16,17 +16,14 @@ interface CartItem {
 }
 
 export default function CartPage() {
-  // Estados para simular a reatividade dos dados vindos da API
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Exemplo de integração: calcular o total e a quantidade total de itens de forma dinâmica
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
   useEffect(() => {
     // Simulando a busca dos dados do carrinho para definir se está vazio ou não
-    // Quando integrar com o back-end, preencha o estado 'cartItems' com o array real
     async function fetchCartData() {
       try {
         setLoading(false);
@@ -139,6 +136,7 @@ export default function CartPage() {
 
       </div>
 
+      
       {/* 4. Rodapé */}
       <Footer />
     </main>
