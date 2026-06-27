@@ -76,5 +76,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-
+    public List<Product> findByCategory(Integer categoryId) {
+        return productRepository.findByProductCategoryIdAndActiveTrue(categoryId);
+    }
 }
