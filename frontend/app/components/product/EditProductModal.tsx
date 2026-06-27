@@ -5,7 +5,7 @@ import { Product } from "@/types/Product";
 
 interface Category {
   id: number;
-  name: string;
+  categoryName: string;
 }
 
 interface EditProductModalProps {
@@ -24,15 +24,15 @@ export default function EditProductModal({
   onDelete,
 }: EditProductModalProps) {
   // Inicializa os estados com os dados do produto (ou fallback se nulo)
-  const [name, setName] = useState(product.productName);
-  const [price, setPrice] = useState<string | number>(product.price);
-  const [description, setDescription] = useState(product.description ?? "");
-  const [stockQuantity, setStockQuantity] = useState(product.stockQuantity ?? 0);
-  const [brand, setBrand] = useState(product.brand ?? "");
-  const [category, setCategory] = useState(product.productCategoryId ?? "");
+  const [name, setName] = useState(product?.productName ?? "");
+  const [price, setPrice] = useState<string | number>(product?.price ?? "");
+  const [description, setDescription] = useState(product?.description ?? "");
+  const [stockQuantity, setStockQuantity] = useState(product?.stockQuantity ?? 0);
+  const [brand, setBrand] = useState(product?.brand ?? "");
+  const [category, setCategory] = useState<string | number>(product?.productCategoryId ?? "");
   
-  // CORREÇÃO: Agora puxa a URL que já existe no produto (ajuste 'product.url' se o nome no seu tipo for diferente, ex: imageUrl)
-  const [imageUrl, setImageUrl] = useState(product.imageUrl ?? null); 
+  // Ajustado para iniciar como string vazia se for null, evitando erros de input controlado
+  const [imageUrl, setImageUrl] = useState(product?.imageUrl ?? ""); 
 
   const [categoriesList, setCategoriesList] = useState<Category[]>([]);
   const [loadingCategories, setLoadingCategories] = useState(false);
@@ -46,7 +46,7 @@ export default function EditProductModal({
       setStockQuantity(product.stockQuantity ?? 0);
       setBrand(product.brand ?? "");
       setCategory(product.productCategoryId ?? "");
-      setImageUrl(product.imageUrl ?? null); // Sincroniza a imagem aqui também
+      setImageUrl(product.imageUrl ?? ""); // Sincroniza a imagem de forma segura aqui também
     }
   }, [product]);
 
@@ -79,10 +79,10 @@ export default function EditProductModal({
       price: Number(price), // Converte para número na hora de salvar
       description: description,
       stockQuantity: Number(stockQuantity),
-      productCategoryId: category,
+      productCategoryId: category ? Number(category) : null,
       brand: brand,
       sku: product.sku,
-      url: imageUrl, // Envia a nova URL digitada
+      url: imageUrl || null, // Garante o envio correto da nova URL ou null se apagada
     });
   };
 
@@ -133,11 +133,12 @@ export default function EditProductModal({
                 disabled={loadingCategories}
               >
                 <option value="" className="text-black bg-white">
-                  {loadingCategories ? "Carregando..." : "Selecione uma categoria"}
+                  {loadingCategories ? "Carregando..." : "Selecione"}
                 </option>
                 {categoriesList.map((cat) => (
                   <option key={cat.id} value={cat.id} className="text-black bg-white">
-                    {cat.name}
+                    {/* Mantido com cat.categoryName para sincronizar com seu banco */}
+                    {cat.categoryName}
                   </option>
                 ))}
               </select>
@@ -159,7 +160,7 @@ export default function EditProductModal({
             />
           </div>
 
-          {/* Preço - Mudado para aceitar texto temporariamente para facilitar digitação de pontos/vírgulas */}
+          {/* Preço */}
           <div className="flex flex-col gap-1">
             <label className="text-[16px] font-medium text-black">Preço (R$)</label>
             <input
@@ -195,7 +196,7 @@ export default function EditProductModal({
 
         <button 
           onClick={handleSave} 
-          className="w-full bg-[#21B584] hover:bg-[#5C21B5] text-white font-medium py-4 rounded-lg text-lg transition-all"
+          className="w-full bg-[#21B584] hover:bg-[#1a936b] text-white font-medium py-4 rounded-lg text-lg transition-all"
         >
           Salvar alterações
         </button>
