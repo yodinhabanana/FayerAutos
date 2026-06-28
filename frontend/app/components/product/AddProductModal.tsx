@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 interface Category {
   id: number;
-  name: string;
+  categoryName: string; // Corrigido para bater com a propriedade vinda do banco de dados
 }
 
 interface AddProductModalProps {
@@ -18,8 +18,8 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [price, setPrice] = useState<number | "">("");
-  const [stockQuantity, setStockQuantity] = useState<number | "">("");
+  const [price, setPrice] = useState<number | "">( "");
+  const [stockQuantity, setStockQuantity] = useState<number | "">( "");
   const [description, setDescription] = useState("");
 
   const [categoriesList, setCategoriesList] = useState<Category[]>([]);
@@ -103,7 +103,7 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
           ✕
         </button>
 
-        {/* Título idêntico ao protótipo */}
+        {/* Título */}
         <h2 className="text-[32px] font-bold text-black mb-6 tracking-tight">
           Criar peça
         </h2> 
@@ -147,7 +147,8 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                 </option>
                 {categoriesList.map((cat) => (
                   <option key={cat.id} value={cat.id} className="text-black bg-white">
-                    {cat.name}
+                    {/* CORREÇÃO AQUI: Mudado de cat.name para cat.categoryName */}
+                    {cat.categoryName}
                   </option>
                 ))}
               </select>
@@ -204,7 +205,7 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
           />
         </div>
 
-        {/* Botão Vermelho idêntico ao protótipo */}
+        {/* Botão para Criar */}
         <button 
           onClick={handleCreate} 
           className="w-full bg-[#B31212] hover:bg-red-700 text-white font-medium py-3.5 rounded-xl text-lg transition-all shadow-md"

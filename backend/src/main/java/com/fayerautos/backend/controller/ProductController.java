@@ -5,6 +5,7 @@ import com.fayerautos.backend.service.ProductService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,7 +34,10 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getProducts(){
+    public List<Product> getProducts(@RequestParam(name = "category", required = false) Integer categoryId) {
+        if (categoryId != null) {
+            return productService.findByCategory(categoryId);
+        }
         return productService.getActiveProducts();
     }
 
@@ -57,7 +61,5 @@ public class ProductController {
     public Product create(@RequestBody ProductCreateRequest request) {
         return productService.create(request);
     }
-    
-
 }   
     

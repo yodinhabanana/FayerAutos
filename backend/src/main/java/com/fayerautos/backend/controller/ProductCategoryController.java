@@ -1,8 +1,11 @@
 package com.fayerautos.backend.controller;
 
+import com.fayerautos.backend.dto.CategoryCreateRequest;
 import com.fayerautos.backend.model.ProductCategory;
 import com.fayerautos.backend.service.ProductCategoryService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +20,7 @@ public class ProductCategoryController {
     
     private final ProductCategoryService productCategoryService;
 
-    private ProductCategoryController(ProductCategoryService productCategoryService) {
+    public ProductCategoryController(ProductCategoryService productCategoryService) {
         this.productCategoryService = productCategoryService;
     }
 
@@ -26,5 +29,9 @@ public class ProductCategoryController {
         return productCategoryService.getAllProductCategories();   
     }
 
+    @PostMapping
+    public ProductCategory createProductCategory(@RequestBody CategoryCreateRequest req) {
+        return productCategoryService.saveProductCategory(req);
+    }
 }   
     
