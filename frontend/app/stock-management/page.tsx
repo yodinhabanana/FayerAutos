@@ -6,10 +6,12 @@ import { getProducts } from "@/services/productService";
 import { Product } from "@/types/Product";
 import AlterProduct from "@/components/product/EditProductModal";
 import AddProductModal from "@/components/product/AddProductModal";
+import AddCategoryModal from "@/components/category/AddCategoryModal"; // Importação da nova modal
 
 export default function StockManagementPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false); // Estado para a nova modal
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -33,7 +35,7 @@ export default function StockManagementPage() {
         await fetch(`http://localhost:8080/api/products/deleteLogic/${id}`, {
           method: "PUT",
         });
-        alert("Produto deletado com sucesso!");
+        alert("Produto deletedo com sucesso!");
         setProducts(prev => prev.filter(p => p.id !== id));
         setIsEditModalOpen(false);
       } catch (err) {
@@ -65,18 +67,25 @@ export default function StockManagementPage() {
 
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-8">
         
-        {/* TITULO + BOTÃO NOVO PRODUTO */}
+        {/* ==================== TITULO + BOTÕES DE AÇÃO ==================== */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-black">Gestão de estoque</h1>
             <p className="text-gray-500 text-sm mt-1">Cadastre, edite e gerencie a disponibilidade das peças.</p>
           </div>
-          <button 
-            onClick={() => setIsAddModalOpen(true)}
-            className="bg-[#B31212] hover:bg-red-700 text-white font-medium px-8 py-2.5 rounded-md transition-all shadow-sm"
-          >
-            Novo produto
-          </button>
+          <div className="flex items-center gap-3 shrink-0">
+            <button 
+              onClick={() => setIsCategoryModalOpen(true)}
+              className="bg-[#1A1B21] hover:bg-gray-700 text-white font-medium px-6 py-2.5 rounded-md transition-all shadow-sm border border-gray-700 whitespace-nowrap text-sm sm:text-base">
+              Nova categoria
+            </button>
+            <button 
+              onClick={() => setIsAddModalOpen(true)}
+              className="bg-[#B31212] hover:bg-red-700 text-white font-medium px-8 py-2.5 rounded-md transition-all shadow-sm whitespace-nowrap text-sm sm:text-base"
+            >
+              Novo produto
+            </button>
+          </div>
         </div>
 
         {/* COMPONENTE DE MÉTRICAS / CARDS TOP */}
@@ -143,7 +152,6 @@ export default function StockManagementPage() {
                     className="text-gray-600 hover:text-blue-600 transition-colors"
                     title="Editar produto"
                   >
-                    {/* Ícone de Caneta/Edição SVG */}
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-2.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                     </svg>
@@ -153,7 +161,6 @@ export default function StockManagementPage() {
                     className="text-gray-600 hover:text-red-600 transition-colors"
                     title="Deletar produto"
                   >
-                    {/* Ícone de Lixeira SVG */}
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
@@ -168,9 +175,7 @@ export default function StockManagementPage() {
             )}
           </div>
         </div>
-
       </div>
-
       {/* MODAL GLOBAL DE EDIÇÃO */}
       {selectedProduct && (
         <AlterProduct 
@@ -189,6 +194,12 @@ export default function StockManagementPage() {
           setIsAddModalOpen(false);
           getProducts().then((data) => setProducts(data || []));
         }}
+      />
+
+      {/* MODAL DE ADICIONAR NOVA CATEGORIA */}
+      <AddCategoryModal
+        isOpen={isCategoryModalOpen}
+        onClose={() => setIsCategoryModalOpen(false)}
       />
     </main>
   );

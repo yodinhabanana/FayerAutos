@@ -19,7 +19,7 @@ export default function CategoryBar() {
   }, []);
 
   const handleCategoryClick = (categoryId: number) => {
-    router.push(`/products?category=${categoryId}`); 
+    router.push(`/search-category?category=${categoryId}`); 
   };
 
   return (

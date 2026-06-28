@@ -64,6 +64,7 @@ function ProductsContent() {
       })
       .catch((err) => {
         console.error("Erro ao buscar produtos:", err);
+        setProducts([]);
         setLoading(false);
       });
   }, [categoryId, searchQuery]);
@@ -77,7 +78,7 @@ function ProductsContent() {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchInput.trim()) return;
-    router.push(`/products?search=${encodeURIComponent(searchInput)}`);
+    router.push(`/search-category?search=${encodeURIComponent(searchInput)}`);
   };
 
   const availableBrands = Array.from(
@@ -115,7 +116,6 @@ function ProductsContent() {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
       <div>
-        {}
         <header className="bg-[#1A1B21] text-white w-full border-b border-gray-800">
           <div className="w-full px-4 md:px-8 py-3.5 flex items-center justify-between gap-4 md:gap-12">
             <div className="flex items-center gap-4 md:gap-6 shrink-0">
@@ -166,13 +166,12 @@ function ProductsContent() {
           </div>
         </header>
 
-        {}
         <div className="w-full bg-[#E5E5E5] border-b border-gray-300">
           <nav className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-6 md:gap-12 overflow-x-auto whitespace-nowrap scrollbar-hide">
             {categories.map((category) => (
               <button
                 key={category.id}
-                onClick={() => router.push(`/products?category=${category.id}`)}
+                onClick={() => router.push(`/search-category?category=${category.id}`)}
                 className={`text-[#1A1A1A] font-semibold text-base py-1 px-2 transition-colors hover:text-red-600 ${
                   categoryId === String(category.id) ? "text-red-600 border-b-2 border-red-600" : ""
                 }`}
@@ -183,7 +182,6 @@ function ProductsContent() {
           </nav>
         </div>
 
-        {}
         <main className="max-w-7xl mx-auto px-6 py-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-[#1A1A1A] tracking-tight">{pageTitle}</h1>
@@ -191,7 +189,6 @@ function ProductsContent() {
           </div>
 
           <div className="flex flex-col md:flex-row gap-8">
-            {}
             <aside className="w-full md:w-80 border border-gray-200 rounded-2xl p-6 h-fit bg-white shadow-sm shrink-0">
               <div className="flex items-center gap-2.5 font-bold text-xl border-b pb-3 mb-4 text-[#1A1A1A]">
                 <Image 
@@ -204,7 +201,6 @@ function ProductsContent() {
                 <span>Filtros</span>
               </div>
 
-              {}
               <div className="mb-6">
                 <h3 className="font-bold text-base text-[#1A1A1A] mb-3">Marca</h3>
                 <div className="space-y-2.5 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
@@ -226,7 +222,6 @@ function ProductsContent() {
                 </div>
               </div>
 
-              {}
               <div className="mb-6 border-t pt-4">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="font-bold text-base text-[#1A1A1A]">Faixa de preço</h3>
@@ -254,7 +249,6 @@ function ProductsContent() {
               </button>
             </aside>
 
-            {}
             <section className="flex-1">
               {loading ? (
                 <div className="text-center py-12 text-gray-500 font-medium">Buscando peças...</div>
@@ -277,7 +271,6 @@ function ProductsContent() {
         </main>
       </div>
 
-      {}
       <footer className="bg-[#1A1B21] text-white mt-16 w-full border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
           <Link href="/">
