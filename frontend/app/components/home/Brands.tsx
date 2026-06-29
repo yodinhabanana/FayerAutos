@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Brands() {
   const brands = [
     "/brands/BOSCH.png", 
-    "/brands/FRASLE.png",
+    "/brands/NAKATA.png",
     "/brands/EXEDY.png",
     "/brands/SKF.png",
     "/brands/CONTINENTAL.png"
