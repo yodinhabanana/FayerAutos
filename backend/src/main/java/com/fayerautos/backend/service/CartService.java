@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fayerautos.backend.model.Product;
 import com.fayerautos.backend.repository.ProductRepository;
+import com.fayerautos.backend.dto.OrderItemResponse;
 import com.fayerautos.backend.model.OrderItem;
 import com.fayerautos.backend.repository.OrderItemRepository;
    
@@ -26,28 +27,63 @@ public class CartService {
         return cartRepository.findAll();
     }
 
-    public List<OrderItem> getItemsByOrderId(Integer orderId) {
-        return cartRepository.findByOrderId(orderId);
+    public List<OrderItemResponse> getItemsByOrderId(Integer orderId) {
+        List<OrderItem> items = cartRepository.findByOrderId(orderId);
+        
+        return items.stream().map(item -> {
+            String productName = productRepository.findById(item.getProductId())
+                .map(p -> p.getProductName()) 
+                .orElse("Produto Desconhecido");
+
+            return new com.fayerautos.backend.dto.OrderItemResponse(
+                item.getId(),
+                item.getOrderId(),
+                item.getProductId(),
+                item.getQuantity(),
+                item.getUnitPrice(),
+                productName
+            );
+        }).toList();
     }
 
     public OrderItem addItem(
         Integer orderId,
         Integer productId,
         Integer quantity
-    ) {
+        ) {
+        // 1. Verifica se o produto existe
         Product product = productRepository
             .findById(productId)
             .orElseThrow(
                 () -> new RuntimeException("Produto não encontrado")
             );
 
-        OrderItem item = new OrderItem();
+        List<OrderItem> existingItems = cartRepository.findByOrderId(orderId);
+        
+        java.util.Optional<OrderItem> duplicatedItem = existingItems.stream()
+            .filter(item -> item.getProductId().equals(productId))
+            .findFirst();
 
-        item.setOrderId(orderId);
-        item.setProductId(productId);
-        item.setQuantity(quantity);
-        item.setUnitPrice(product.getPrice());
+        if (duplicatedItem.isPresent()) {
+            OrderItem itemExistente = duplicatedItem.get();
+            itemExistente.setQuantity(itemExistente.getQuantity() + quantity);
+            
+            itemExistente.setUnitPrice(product.getPrice()); 
+            
+            return cartRepository.save(itemExistente);
+        } else {
+            OrderItem newItem = new OrderItem();
+            newItem.setOrderId(orderId);
+            newItem.setProductId(productId);
+            newItem.setQuantity(quantity);
+            newItem.setUnitPrice(product.getPrice());
+            
+            return cartRepository.save(newItem);
+        }
+    }
 
-        return cartRepository.save(item);
+    public void clearCart(Integer orderId) {
+        List<OrderItem> items = cartRepository.findByOrderId(orderId);
+        cartRepository.deleteAll(items);
     }
 }

@@ -1,42 +1,79 @@
 import { OrderItem } from "@/types/OrderItem";
 
-export async function addToCart(
-  orderId: number,
-  productId: number,
-  quantity: number
-): Promise<OrderItem> {
-  const response = await fetch(
-    "http://localhost:8080/api/orderItems",
-    {
-      method: "POST",
+  export async function addToCart(
+    orderId: number,
+    productId: number,
+    quantity: number
+    ): Promise<OrderItem> {
+    const response = await fetch(
+      "http://localhost:8080/api/orderItems",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          orderId,
+          productId,
+          quantity,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Erro ao adicionar ao carrinho");
+    }
+
+  return response.json();
+}
+
+  export async function getCartItems(
+    orderId: number
+  ): Promise<OrderItem[]> {
+    const response = await fetch(
+      `${"http://localhost:8080/api/orderItems"}/${orderId}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar carrinho");
+    }
+
+    return response.json();
+  }
+
+  export async function deleteCartItem(itemId: number): Promise<void> {
+    const response = await fetch(`http://localhost:8080/api/orderItems/${itemId}`, {
+      method: "DELETE",
+    });
+    
+    if (!response.ok) {
+      throw new Error("Erro ao remover item do carrinho");
+    }
+  }
+
+  export async function updateCartItemQuantity(item: OrderItem, quantity: number): Promise<void> {
+    const response = await fetch(`http://localhost:8080/api/orderItems/${item.id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        orderId,
-        productId,
-        quantity,
+        ...item,
+        quantity: quantity
       }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao atualizar quantidade do item");
     }
-  );
-
-  if (!response.ok) {
-    throw new Error("Erro ao adicionar ao carrinho");
   }
 
-  return response.json();
-}
-
-export async function getCartItems(
-  orderId: number
-): Promise<OrderItem[]> {
-  const response = await fetch(
-    `${"http://localhost:8080/api/orderItems"}/${orderId}`
-  );
-
-  if (!response.ok) {
-    throw new Error("Erro ao buscar carrinho");
+  export async function clearCart(orderId: number): Promise<void> {
+    const response = await fetch(`http://localhost:8080/api/orderItems/clear/${orderId}`, {
+      method: "DELETE",
+    });
+    
+    if (!response.ok) {
+      throw new Error("Erro ao esvaziar o carrinho");
+    }
   }
-
-  return response.json();
-}

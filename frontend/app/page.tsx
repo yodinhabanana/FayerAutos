@@ -13,7 +13,7 @@ import Footer from "@/components/global/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-black">
+    <main className="min-h-screen w-full bg-white text-black overflow-x-hidden">
 
       {/* 1. Header Principal */}
       <Header />
@@ -21,10 +21,10 @@ export default function Home() {
       {/* 2. Barra de Categorias (Freio, Motor, Suspensão...) */}
       <CategoryBar />
       
-      {/* 3. Banner Principal (Carro Vermelho) */}
+      {/* 3. Banner Principal (Agora corrigido com altura fixa interna para não sumir) */}
       <HeroBanner />
       
-      {/* 4. Vantagens (Frete grátis, Preços baixos, Atendimento) */}
+      {/* 4. Vantagens (Frete grátis, Preços baixos, Atendimento) - Renderiza LOGO APÓS o banner */}
       <div className="mt-12">
         <Features />
       </div>

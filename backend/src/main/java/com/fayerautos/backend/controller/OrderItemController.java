@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fayerautos.backend.dto.AddToCartRequest;
+import com.fayerautos.backend.dto.OrderItemResponse;
 import com.fayerautos.backend.model.OrderItem;
 import com.fayerautos.backend.service.CartService;
 import com.fayerautos.backend.service.OrderItemService;
@@ -32,7 +33,7 @@ public class OrderItemController {
     }
 
     @GetMapping("/{orderId}")
-    public List<OrderItem> getItemsByOrderId(@PathVariable Integer orderId) {
+    public List<OrderItemResponse> getItemsByOrderId(@PathVariable Integer orderId) {
         return cartService.getItemsByOrderId(orderId);
     }
 
@@ -70,4 +71,10 @@ public class OrderItemController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @DeleteMapping("/clear/{orderId}")
+    public ResponseEntity<Void> clearCart(@PathVariable Integer orderId) {
+        cartService.clearCart(orderId);
+        return ResponseEntity.noContent().build();
+}
 }
