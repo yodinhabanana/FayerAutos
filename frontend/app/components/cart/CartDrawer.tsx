@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { getCartItems, deleteCartItem, updateCartItemQuantity, clearCart } from "@/services/cartService"; 
@@ -227,9 +228,13 @@ export default function CartDrawer({ isOpen, onClose, orderId }: CartDrawerProps
                 R$ {totalPrice.toFixed(2).replace(".", ",")}
               </span>
             </div>
-            <button className="w-full bg-[#991212] hover:bg-[#800f0f] text-white font-medium py-3.5 rounded-lg text-md text-center">
+            <Link 
+              href="/checkout" 
+              onClick={onClose} 
+              className="w-full block bg-[#991212] hover:bg-[#800f0f] text-white font-medium py-3.5 rounded-lg text-md text-center transition-all shadow-sm"
+            >
               Finalizar pedido
-            </button>
+            </Link>
           </div>
         )}
       </div>
