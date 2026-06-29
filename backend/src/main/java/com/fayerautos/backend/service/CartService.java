@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fayerautos.backend.model.Product;
 import com.fayerautos.backend.repository.ProductRepository;
+import com.fayerautos.backend.dto.OrderItemResponse;
 import com.fayerautos.backend.model.OrderItem;
 import com.fayerautos.backend.repository.OrderItemRepository;
    
@@ -26,9 +27,24 @@ public class CartService {
         return cartRepository.findAll();
     }
 
-    public List<OrderItem> getItemsByOrderId(Integer orderId) {
-        return cartRepository.findByOrderId(orderId);
-    }
+    public List<OrderItemResponse> getItemsByOrderId(Integer orderId) {
+    List<OrderItem> items = cartRepository.findByOrderId(orderId);
+    
+    return items.stream().map(item -> {
+        String productName = productRepository.findById(item.getProductId())
+            .map(p -> p.getProductName()) 
+            .orElse("Produto Desconhecido");
+
+        return new com.fayerautos.backend.dto.OrderItemResponse(
+            item.getId(),
+            item.getOrderId(),
+            item.getProductId(),
+            item.getQuantity(),
+            item.getUnitPrice(),
+            productName
+        );
+    }).toList();
+}
 
     public OrderItem addItem(
         Integer orderId,
