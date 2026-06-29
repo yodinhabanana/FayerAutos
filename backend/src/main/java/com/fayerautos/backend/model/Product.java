@@ -2,21 +2,30 @@ package com.fayerautos.backend.model;
 
 /*## Table `products`
 ### Columns
-| Name | Type | Constraints |
+| Name | Type | ConstraIntegers |
 |------|------|-------------|
-| `id` | `int4` | Primary Identity |
-| `product_category_id` | `int4` |  |
+| `id` | `Integer4` | Primary Identity |
+| `product_category_id` | `Integer4` |  |
 | `product_name` | `varchar` |  |
 | `price` | `numeric` |  |
-| `stock_quantity` | `int4` |  |
+| `stock_quantity` | `Integer4` |  |
 | `brand` | `varchar` |  Nullable |
 | `sku` | `varchar` |  Nullable Unique |
 | `description` | `text` |  Nullable |
 | `created_at` | `timestamp` |  |
 */
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "products")
@@ -29,13 +38,13 @@ import lombok.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "stock_quantity")
-    private int stockQuantity;
+    private Integer stockQuantity;
 
     @Column(name = "product_category_id")
-    private int productCategoryId;
+    private Integer productCategoryId;
 
     @Column(name = "product_name")
     private String productName;

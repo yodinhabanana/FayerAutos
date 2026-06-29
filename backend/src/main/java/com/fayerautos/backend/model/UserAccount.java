@@ -4,9 +4,9 @@ package com.fayerautos.backend.model;
 
 ### Columns
 
-| Name | Type | Constraints |
+| Name | Type | ConstraIntegers |
 |------|------|-------------|
-| `id` | `int4` | Primary Identity |
+| `id` | `Integer4` | Primary Identity |
 | `full_name` | `varchar` |  |
 | `birth_date` | `date` |  |
 | `email` | `varchar` |  Unique |
@@ -14,12 +14,21 @@ package com.fayerautos.backend.model;
 | `gender` | `bpchar` |  Nullable |
 | `username` | `varchar` |  Unique |
 | `password_hash` | `varchar` |  |
-| `user_role_id` | `int4` |  |
+| `user_role_id` | `Integer4` |  |
 | `created_at` | `timestamp` |  |
  */
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "user_accounts")
@@ -32,7 +41,7 @@ import lombok.*;
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "full_name")
     private String fullName;
@@ -56,5 +65,5 @@ public class UserAccount {
     private String passwordHash;
 
     @Column(name = "user_role_id")
-    private int userRoleId;
+    private Integer userRoleId;
 }
