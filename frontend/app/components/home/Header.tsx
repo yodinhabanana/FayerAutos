@@ -7,14 +7,35 @@ import { jwtDecode } from "jwt-decode";
 import { MyJwtPayload } from "@/types/Auth";
 import Sidebar from "../layout/Sidebar";
 import CartDrawer from "@/components/cart/CartDrawer"; 
+import { getCartItems } from "@/services/cartService"; // Importando o serviço
 
 export default function Header() {
   const [user, setUser] = useState<MyJwtPayload | null>(null);
   const [open, setOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-
-  // Exemplo de estado para o contador. Você pode conectar isso ao seu contexto de carrinho.
   const [cartCount, setCartCount] = useState(0); 
+
+  // ID temporário do pedido (mude para user?.orderId ou similar no futuro)
+  const currentOrderId = 1;
+
+  // Função para buscar a quantidade atualizada de itens do backend
+  const fetchCartCount = () => {
+    if (currentOrderId) {
+      getCartItems(currentOrderId)
+        .then((items) => {
+          if (items) {
+            // Soma todas as quantidades de itens no carrinho
+            const total = items.reduce((acc, item) => acc + item.quantity, 0);
+            setCartCount(total);
+          } else {
+            setCartCount(0);
+          }
+        })
+        .catch((err) => {
+          console.error("Erro ao buscar contagem do carrinho no Header:", err);
+        });
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -23,6 +44,18 @@ export default function Header() {
       setUser(jwtDecode<MyJwtPayload>(token));
     }
   }, []);
+
+  // Busca a quantidade inicial de itens assim que o componente carrega
+  useEffect(() => {
+    fetchCartCount();
+  }, []);
+
+  // Toda vez que a gaveta do carrinho fechar, atualiza a bolinha do Header
+  useEffect(() => {
+    if (!cartOpen) {
+      fetchCartCount();
+    }
+  }, [cartOpen]);
 
   function logout() {
     localStorage.removeItem("token");
@@ -39,13 +72,13 @@ export default function Header() {
           <button className="text-xl w-10 h-10 flex items-center justify-center rounded-md hover:bg-red-700 transition-all text-white font-bold" onClick={() => setOpen(true)}>
             ☰
           </button>
-         
+          
           <Sidebar 
             isOpen={open} 
             onClose={() => setOpen(false)}
             user={user}  
           />
-      
+        
           <Link href="/" className="block">
             <Image 
               src="/logo3.png" 
@@ -75,19 +108,19 @@ export default function Header() {
         {/* BLOCO DA DIREITA: Carrinho + Botões */}
         <div className="flex items-center gap-6 md:gap-8 shrink-0 justify-end">
           
-          {/* BOTÃO DO CARRINHO COM O ÍCONE ORIGINAL */}
+          {/* BOTÃO DO CARRINHO */}
           <button 
             onClick={() => setCartOpen(true)} 
-            className="text-white hover:text-gray-300 transition-colors relative"
+            className="text-white hover:text-gray-300 transition-colors relative p-1"
           >
             {/* Ícone original do carrinho */}
             <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 11-4 0 2 2 0 014 0z"></path>
             </svg>
             
-            {/* Opcional: Contador de itens sobre o ícone original */}
+            {/* Bolinha vermelha perfeitamente posicionada sobre o ícone do cabeçalho */}
             {cartCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 bg-[#B31212] text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-[#B31212] text-white text-[10px] font-bold rounded-full h-4.5 min-w-[18px] px-1 flex items-center justify-center border border-[#1A1B21] select-none">
                 {cartCount}
               </span>
             )}
@@ -121,7 +154,7 @@ export default function Header() {
       <CartDrawer 
         isOpen={cartOpen}
         onClose={() => setCartOpen(false)}
-        orderId={1} // Substitua pelo ID real do carrinho do usuário quando tiver essa variável (ex: user?.orderId)
+        orderId={currentOrderId} 
       />
     </header>
   );

@@ -27,7 +27,15 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {/* Renderiza as páginas da sua aplicação */}
+        {children}
+
+        {/* Ponto de montagem isolado para modais, carrinhos e overlays.
+          Fica fora do fluxo principal do seu layout para ignorar contextos de z-index dos pais.
+        */}
+        <div id="portal-root" />
+      </body>
     </html>
   );
 }

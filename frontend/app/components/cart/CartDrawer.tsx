@@ -97,16 +97,30 @@ export default function CartDrawer({ isOpen, onClose, orderId }: CartDrawerProps
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = cartItems.reduce((acc, item) => acc + (item.unitPrice * item.quantity), 0);
 
+  // Seleciona a div criada no layout.tsx para isolar o escopo do modal
+  const portalRoot = document.getElementById("portal-root");
+  const targetContainer = portalRoot || document.body;
+
   return createPortal(
-    <div className="fixed inset-0 z-[99999] flex justify-end h-screen w-screen overflow-hidden">
-      
+    <div 
+      className="fixed inset-0 flex justify-end h-screen w-screen overflow-hidden"
+      style={{ zIndex: 99999 }} // Forçado via CSS puro para o Tailwind v4 respeitar
+    >
+      {/* Fundo Escuro (Overlay) */}
       <div className="fixed inset-0 bg-black/60 transition-opacity" onClick={onClose} />
 
+      {/* Lateral do Carrinho (Gaveta) */}
       <div 
-        className="relative flex h-full flex-col bg-white text-black shadow-2xl z-[100000]"
-        style={{ width: "40vw", minWidth: "380px", maxWidth: "500px" }}
+        className="relative flex h-full flex-col bg-white text-black shadow-2xl"
+        style={{ 
+          width: "40vw", 
+          minWidth: "380px", 
+          maxWidth: "500px",
+          zIndex: 100000 // Garante que a gaveta fique em cima do overlay escuro
+        }}
       >
         
+        {/* Cabeçalho do Carrinho */}
         <section className="bg-[#191C24] text-white py-4 w-full shrink-0 px-6 border-b border-gray-800">
           <div className="w-full flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
@@ -124,6 +138,7 @@ export default function CartDrawer({ isOpen, onClose, orderId }: CartDrawerProps
           </div>
         </section>
 
+        {/* Lista de Itens */}
         <div className="flex-1 w-full px-6 py-8 overflow-y-auto flex flex-col">
           {loading ? (
             <div className="flex-1 flex items-center justify-center text-[16px] font-medium text-gray-500">
@@ -195,6 +210,7 @@ export default function CartDrawer({ isOpen, onClose, orderId }: CartDrawerProps
           )}
         </div>
 
+        {/* Rodapé com Valores */}
         {cartItems.length > 0 && (
           <div className="border-t border-gray-200 p-6 bg-gray-50 shrink-0">
             <div className="flex justify-between items-center mb-4">
@@ -210,6 +226,6 @@ export default function CartDrawer({ isOpen, onClose, orderId }: CartDrawerProps
         )}
       </div>
     </div>,
-    document.body
+    targetContainer
   );
 }

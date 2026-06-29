@@ -32,7 +32,8 @@ export default function HeroBanner() {
   }, []);
 
   return (
-    <section className="relative w-full h-[450px] bg-black overflow-hidden block">
+    // Adicionamos z-0 aqui na section principal para isolar o contexto do banner
+    <section className="relative w-full h-[450px] bg-black overflow-hidden block z-0">
       
       {/* 1. CAMADA DE IMAGENS */}
       {SLIDES.map((slide, index) => (
@@ -59,12 +60,12 @@ export default function HeroBanner() {
         </div>
       ))}
 
-      {/* 2. CAMADA DE TEXTOS - REPOSICIONADA E DIMINUÍDA */}
+      {/* 2. CAMADA DE TEXTOS - CORRIGIDO DE z-50 PARA z-20 */}
       <div 
-        className="absolute z-50 text-white text-right flex flex-col items-end justify-center"
+        className="absolute z-20 text-white text-right flex flex-col items-end justify-center"
         style={{
           top: "0",
-          right: "12%", // Afastou mais da borda direita, vindo para a esquerda
+          right: "12%",
           width: "auto",
           maxWidth: "550px",
           height: "100%"
@@ -101,8 +102,8 @@ export default function HeroBanner() {
 
       </div>
 
-      {/* 3. CONTROLADORES (DOTS) */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full">
+      {/* 3. CONTROLADORES (DOTS) - CORRIGIDO DE z-50 PARA z-20 */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full">
         {SLIDES.map((_, index) => (
           <button
             key={index}
