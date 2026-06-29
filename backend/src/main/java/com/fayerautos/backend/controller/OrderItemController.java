@@ -71,4 +71,10 @@ public class OrderItemController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @DeleteMapping("/clear/{orderId}")
+    public ResponseEntity<Void> clearCart(@PathVariable Integer orderId) {
+        cartService.clearCart(orderId);
+        return ResponseEntity.noContent().build();
+}
 }
