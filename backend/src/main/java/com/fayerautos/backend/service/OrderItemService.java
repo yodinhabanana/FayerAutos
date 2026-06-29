@@ -20,7 +20,7 @@ public class OrderItemService {
 		return repository.findAll();
 	}
 
-	public Optional<OrderItem> findById(int id) {
+	public Optional<OrderItem> findById(Integer id) {
 		return repository.findById(id);
 	}
 
@@ -28,7 +28,7 @@ public class OrderItemService {
 		return repository.save(orderItem);
 	}
 
-	public Optional<OrderItem> update(int id, OrderItem updatedItem) {
+	public Optional<OrderItem> update(Integer id, OrderItem updatedItem) {
 		return repository.findById(id).map(existingItem -> {
 			existingItem.setQuantity(updatedItem.getQuantity());
 			existingItem.setOrderId(updatedItem.getOrderId());
@@ -38,7 +38,7 @@ public class OrderItemService {
 		});
 	}
 
-	public boolean deleteById(int id) {
+	public boolean deleteById(Integer id) {
 		if (repository.existsById(id)) {
 			repository.deleteById(id);
 			return true;

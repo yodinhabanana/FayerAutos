@@ -20,7 +20,7 @@ public class UserAccountService {
 		return repository.findAll();
 	}
 
-	public Optional<UserAccount> findById(int id) {
+	public Optional<UserAccount> findById(Integer id) {
 		return repository.findById(id);
 	}
 
@@ -28,7 +28,7 @@ public class UserAccountService {
 		return repository.save(userAccount);
 	}
 
-	public Optional<UserAccount> update(int id, UserAccount updatedUser) {
+	public Optional<UserAccount> update(Integer id, UserAccount updatedUser) {
 		return repository.findById(id).map(existingUser -> {
 			existingUser.setFullName(updatedUser.getFullName());
 			existingUser.setBirthDate(updatedUser.getBirthDate());
@@ -42,7 +42,7 @@ public class UserAccountService {
 		});
 	}
 
-	public boolean deleteById(int id) {
+	public boolean deleteById(Integer id) {
 		if (repository.existsById(id)) {
 			repository.deleteById(id);
 			return true;

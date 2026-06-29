@@ -14,8 +14,17 @@ package com.fayerautos.backend.model;
 | `created_at` | `timestamp` |  |
 */
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "orders")
@@ -28,7 +37,7 @@ import lombok.*;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "status")
     private String status;
@@ -37,8 +46,8 @@ public class Order {
     private String orderCode;
 
     @Column(name = "customer_id")
-    private int customerId;
+    private Integer customerId;
 
     @Column(name = "delivery_address_id")
-    private int deliveryAddressId;
+    private Integer deliveryAddressId;
 }

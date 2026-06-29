@@ -31,7 +31,7 @@ public class UserAccountController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserAccount> getUserById(@PathVariable int id) {
+	public ResponseEntity<UserAccount> getUserById(@PathVariable Integer id) {
 		return service.findById(id)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
@@ -44,14 +44,14 @@ public class UserAccountController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<UserAccount> updateUser(@PathVariable int id, @RequestBody UserAccount updatedUser) {
+	public ResponseEntity<UserAccount> updateUser(@PathVariable Integer id, @RequestBody UserAccount updatedUser) {
 		return service.update(id, updatedUser)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteUser(@PathVariable int id) {
+	public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
 		if (service.deleteById(id)) {
 			return ResponseEntity.noContent().build();
 		}

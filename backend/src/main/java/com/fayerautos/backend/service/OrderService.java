@@ -20,7 +20,7 @@ public class OrderService {
 		return repository.findAll();
 	}
 
-	public Optional<Order> findById(int id) {
+	public Optional<Order> findById(Integer id) {
 		return repository.findById(id);
 	}
 
@@ -28,7 +28,7 @@ public class OrderService {
 		return repository.save(order);
 	}
 
-	public Optional<Order> update(int id, Order updatedOrder) {
+	public Optional<Order> update(Integer id, Order updatedOrder) {
 		return repository.findById(id).map(existingOrder -> {
 			existingOrder.setStatus(updatedOrder.getStatus());
 			existingOrder.setOrderCode(updatedOrder.getOrderCode());
@@ -38,7 +38,7 @@ public class OrderService {
 		});
 	}
 
-	public boolean deleteById(int id) {
+	public boolean deleteById(Integer id) {
 		if (repository.existsById(id)) {
 			repository.deleteById(id);
 			return true;
