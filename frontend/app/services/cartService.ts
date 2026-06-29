@@ -51,14 +51,16 @@ import { OrderItem } from "@/types/OrderItem";
     }
   }
 
-  export async function updateCartItemQuantity(itemId: number, quantity: number): Promise<void> {
-    const response = await fetch(`http://localhost:8080/api/orderItems/${itemId}`, {
+  export async function updateCartItemQuantity(item: OrderItem, quantity: number): Promise<void> {
+    const response = await fetch(`http://localhost:8080/api/orderItems/${item.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      // Enviamos o objeto que o OrderItem do backend espera receber
-      body: JSON.stringify({ quantity }),
+      body: JSON.stringify({
+        ...item,
+        quantity: quantity
+      }),
     });
 
     if (!response.ok) {

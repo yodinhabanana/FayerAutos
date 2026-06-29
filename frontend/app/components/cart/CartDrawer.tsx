@@ -44,11 +44,16 @@ export default function CartDrawer({ isOpen, onClose, orderId }: CartDrawerProps
   }, [isOpen, orderId]);
 
   const handleRemoveItem = async (itemId: number) => {
+    // Atualização otimista: remove da tela primeiro
+    const previousItems = [...cartItems];
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+
     try {
       await deleteCartItem(itemId);
-      setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
     } catch (err) {
       console.error("Não foi possível apagar o item:", err);
+      alert("Erro ao remover o item. Tente novamente.");
+      setCartItems(previousItems); // Desfaz a remoção se der erro
     }
   };
 
@@ -58,14 +63,18 @@ export default function CartDrawer({ isOpen, onClose, orderId }: CartDrawerProps
       return;
     }
 
+    const previousItems = [...cartItems];
+
+    setCartItems((prevItems) =>
+      prevItems.map((i) => (i.id === item.id ? { ...i, quantity: newQuantity } : i))
+    );
+
     try {
-      setCartItems((prevItems) =>
-        prevItems.map((i) => (i.id === item.id ? { ...i, quantity: newQuantity } : i))
-      );
-      await updateCartItemQuantity(item.id, newQuantity);
+      await updateCartItemQuantity(item, newQuantity);
     } catch (err) {
       console.error("Erro ao atualizar quantidade:", err);
-      fetchItems();
+      alert("Não foi possível atualizar a quantidade no servidor.");
+      setCartItems(previousItems);
     }
   };
 
@@ -97,14 +106,13 @@ export default function CartDrawer({ isOpen, onClose, orderId }: CartDrawerProps
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = cartItems.reduce((acc, item) => acc + (item.unitPrice * item.quantity), 0);
 
-  // Seleciona a div criada no layout.tsx para isolar o escopo do modal
   const portalRoot = document.getElementById("portal-root");
   const targetContainer = portalRoot || document.body;
 
   return createPortal(
     <div 
       className="fixed inset-0 flex justify-end h-screen w-screen overflow-hidden"
-      style={{ zIndex: 99999 }} // Forçado via CSS puro para o Tailwind v4 respeitar
+      style={{ zIndex: 99999 }}
     >
       {/* Fundo Escuro (Overlay) */}
       <div className="fixed inset-0 bg-black/60 transition-opacity" onClick={onClose} />
@@ -116,7 +124,7 @@ export default function CartDrawer({ isOpen, onClose, orderId }: CartDrawerProps
           width: "40vw", 
           minWidth: "380px", 
           maxWidth: "500px",
-          zIndex: 100000 // Garante que a gaveta fique em cima do overlay escuro
+          zIndex: 100000 
         }}
       >
         
