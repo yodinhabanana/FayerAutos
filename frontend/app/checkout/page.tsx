@@ -32,6 +32,7 @@ export default function CheckoutPage() {
     numero: "",
     bairro: "",
     cidade: "",
+    estado: "", // Adicionado o estado no objeto do formulário
     metodoPagamento: "cartao_credito",
   });
 
@@ -104,7 +105,8 @@ export default function CheckoutPage() {
               ...prev,
               rua: data.logradouro || "",
               bairro: data.bairro || "",
-              cidade: data.localidade && data.uf ? `${data.localidade} - ${data.uf}` : "",
+              cidade: data.localidade || "", // Agora apenas salva a cidade limpa aqui
+              estado: data.uf || "",         // Salva o estado separadamente
             }));
           }
         })
@@ -145,6 +147,9 @@ export default function CheckoutPage() {
     }
 
     try {
+      const cidadeFinal = formData.tipoEntrega === "entrega" ? formData.cidade : "Unidade Principal";
+      const estadoFinal = formData.tipoEntrega === "entrega" ? formData.estado : "MG";
+
       const response = await fetch(`http://localhost:8080/api/orders`, {
         method: "POST",
         headers: {
@@ -153,12 +158,14 @@ export default function CheckoutPage() {
         },
         body: JSON.stringify({
           customerId: userId,
-          currentCartId: currentOrderId, // Passa o ID do carrinho (1) para o back-end limpá-lo
-          cep: formData.tipoEntrega === "entrega" ? formData.cep : "00000-000",
-          rua: formData.tipoEntrega === "entrega" ? formData.rua : "Retirada na Loja Matriz",
-          numero: formData.tipoEntrega === "entrega" ? formData.numero : "S/N",
-          bairro: formData.tipoEntrega === "entrega" ? formData.bairro : "Centro",
-          city: formData.tipoEntrega === "entrega" ? formData.cidade : "Unidade Principal"
+          currentCartId: currentOrderId,
+          zipCode: formData.tipoEntrega === "entrega" ? formData.cep : "00000-000",       
+          street: formData.tipoEntrega === "entrega" ? formData.rua : "Retirada na Loja", 
+          number: formData.tipoEntrega === "entrega" ? formData.numero : "S/N",
+          neighborhood: formData.tipoEntrega === "entrega" ? formData.bairro : "Centro", 
+          city: cidadeFinal,                                                             
+          state: estadoFinal,                                                            
+          complement: formData.tipoEntrega === "entrega" ? "Entregar no local" : "Retirada" 
         })
       });
 
@@ -172,6 +179,7 @@ export default function CheckoutPage() {
       localStorage.removeItem("currentCartId"); 
 
       alert("Pedido realizado com sucesso!");
+      router.push("/"); // Redireciona de volta após a compra
 
     } catch (err) {
       console.error("Erro ao finalizar o pedido:", err);
@@ -211,7 +219,7 @@ export default function CheckoutPage() {
                     onChange={handleInputChange}
                     className="w-full border border-gray-300 rounded-xl p-3 outline-none focus:border-red-600 bg-white appearance-none cursor-pointer font-medium"
                   >
-                    <option value="entrega">Entregar no meu endereço (Frete Grátis)</option>
+                    <option value="entrega">Entregar no meu endereço</option>
                     <option value="retirada">Retirar na Loja (Rápido e Grátis)</option>
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">▼</div>
@@ -257,17 +265,26 @@ export default function CheckoutPage() {
                       <input required type="text" name="rua" value={formData.rua} onChange={handleInputChange} className="w-full border border-gray-200 rounded-lg p-2.5 outline-none focus:border-red-600" />
                     </div>
                     <div>
-                      <label className="text-xs font-semibold text-gray-400 uppercase mb-1 block">Número / Complemento</label>
+                      <label className="text-xs font-semibold text-gray-400 uppercase mb-1 block">Número / Compl.</label>
                       <input required type="text" name="numero" placeholder="Ex: 123, Bloco B" value={formData.numero} onChange={handleInputChange} className="w-full border border-gray-200 rounded-lg p-2.5 outline-none focus:border-red-600 font-medium" />
                     </div>
                     <div>
                       <label className="text-xs font-semibold text-gray-400 uppercase mb-1 block">Bairro</label>
                       <input required type="text" name="bairro" value={formData.bairro} onChange={handleInputChange} className="w-full border border-gray-200 rounded-lg p-2.5 outline-none focus:border-red-600" />
                     </div>
-                    <div>
-                      <label className="text-xs font-semibold text-gray-400 uppercase mb-1 block">Cidade / UF</label>
-                      <input required type="text" name="cidade" value={formData.cidade} onChange={handleInputChange} className="w-full border border-gray-200 rounded-lg p-2.5 outline-none focus:border-red-600" />
+                    
+                    {/* Divisão correta entre Cidade e Estado nos inputs gráficos */}
+                    <div className="grid grid-cols-3 gap-2 md:col-span-1">
+                      <div className="col-span-2">
+                        <label className="text-xs font-semibold text-gray-400 uppercase mb-1 block">Cidade</label>
+                        <input required type="text" name="cidade" value={formData.cidade} onChange={handleInputChange} className="w-full border border-gray-200 rounded-lg p-2.5 outline-none focus:border-red-600" />
+                      </div>
+                      <div>
+                        <label className="text-xs font-semibold text-gray-400 uppercase mb-1 block">UF</label>
+                        <input required type="text" name="estado" maxLength={2} value={formData.estado} onChange={handleInputChange} className="w-full border border-gray-200 rounded-lg p-2.5 outline-none focus:border-red-600 font-bold text-center uppercase" />
+                      </div>
                     </div>
+
                   </div>
                 </section>
               )}
