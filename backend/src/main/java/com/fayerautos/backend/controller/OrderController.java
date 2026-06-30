@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fayerautos.backend.dto.OrderRequest;
 import com.fayerautos.backend.model.Order;
 import com.fayerautos.backend.service.OrderService;
 
@@ -23,36 +24,42 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderController {
 
-	private final OrderService service;
+	private final OrderService orderService;
 
 	@GetMapping
 	public ResponseEntity<List<Order>> getAllOrders() {
-		return ResponseEntity.ok(service.findAll());
+		return ResponseEntity.ok(orderService.findAll());
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Order> getOrderById(@PathVariable Integer id) {
-		return service.findById(id)
+		return orderService.findById(id)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 
-	@PostMapping
-	public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-		Order savedOrder = service.save(order);
-		return ResponseEntity.status(HttpStatus.CREATED).body(savedOrder);
+	@GetMapping("/customer/{customerId}")
+	public ResponseEntity<List<com.fayerautos.backend.dto.OrderResponse>> getOrdersByCustomerId(@PathVariable Integer customerId) {
+		List<com.fayerautos.backend.dto.OrderResponse> response = orderService.getOrdersByCustomerId(customerId);
+		return ResponseEntity.ok(response);
 	}
+
+	@PostMapping
+    public ResponseEntity<Order> createOrder(@RequestBody OrderRequest request) {
+        Order newOrder = orderService.finalizeAndCreateOrder(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newOrder);
+    }
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Order> updateOrder(@PathVariable Integer id, @RequestBody Order updatedOrder) {
-		return service.update(id, updatedOrder)
+		return orderService.update(id, updatedOrder)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteOrder(@PathVariable Integer id) {
-		if (service.deleteById(id)) {
+		if (orderService.deleteById(id)) {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.notFound().build();
