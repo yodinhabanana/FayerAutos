@@ -72,4 +72,26 @@ class UserAccountTest {
         assertTrue(result);
         verify(repository).deleteById(1);
     }
+
+    @Test
+    void deveAtualizarUsuario() {
+        UserAccount existing = UserAccount.builder()
+                .id(1)
+                .email("old@email.com")
+                .username("old")
+                .build();
+
+        UserAccount updated = UserAccount.builder()
+                .email("new@email.com")
+                .username("new")
+                .build();
+
+        when(repository.findById(1)).thenReturn(Optional.of(existing));
+        when(repository.save(any(UserAccount.class))).thenReturn(existing);
+
+        Optional<UserAccount> result = service.update(1, updated);
+
+        assertTrue(result.isPresent());
+        assertEquals("new@email.com", result.get().getEmail());
+    }
 }
