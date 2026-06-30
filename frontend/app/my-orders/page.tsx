@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import NoSearchHeader from "@/components/global/NoSearchHeader";
+import Header from "@/components/stock-management/Header";
 import Sidebar from "@/components/layout/Sidebar";
+
 
 interface Order {
   id: number;
@@ -46,15 +47,11 @@ export default function MeusPedidos() {
     <div className="w-full min-h-screen bg-white text-black font-sans select-none antialiased flex flex-col">
       
       {/* HEADER GLOBAL */}
-      <NoSearchHeader />
+      <Header />
 
       {/* CONTAINER DO CORPO (SIDEBAR + CONTEÚDO) */}
       <div className="flex flex-1 w-full">
         
-        {/* BARRA LATERAL */}
-        <Sidebar isOpen={false} onClose={function (): void {
-                  throw new Error("Function not implemented.");
-              } } user={null} />
 
         {/* CONTEÚDO PRINCIPAL DA PÁGINA */}
         <main className="flex-1 px-10 py-12 max-w-7xl mx-auto w-full">
