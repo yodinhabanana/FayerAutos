@@ -12,10 +12,11 @@ import lombok.Setter;
 public class OrderResponse {
     private Integer id;
     private String orderCode;
+    private Integer customerId;
     private String status;
     private LocalDateTime createdAt;
     private Double totalPrice;
     private String itemsSummary;
     private String deliveryAddress;
-    private List<OrderItemResponse> items; // Caso queira listar os itens detalhados no futuro
+    private List<OrderItemResponse> items; 
 }

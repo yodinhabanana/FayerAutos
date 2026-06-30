@@ -74,13 +74,19 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Container Superior */}
       <div>
         {/* Imagem */}
-        <div className="mb-6 h-[200px] w-full relative">
-         <img
-            src={product.imageUrl}
-            alt="Product image"
-            style={{ width: "100%", height: "200px", objectFit: "cover" }}
+        {/* Bloco da Imagem */}
+      <div className="w-full h-48 bg-gray-100 rounded-md overflow-hidden flex items-center justify-center relative">
+        {product.imageUrl ? (
+          <img 
+            src={product.imageUrl} 
+            alt={product.productName} 
+            className="w-full h-full object-cover" 
           />
-        </div>
+        ) : (
+          // Imagem padrão caso o produto não tenha nenhuma cadastrada
+          <span className="text-gray-400 text-xs">Sem imagem</span>
+        )}
+      </div>
 
         {/* Nome */}
         <div className="min-h-[56px] flex items-start">

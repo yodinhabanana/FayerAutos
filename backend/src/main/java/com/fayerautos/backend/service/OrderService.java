@@ -63,6 +63,90 @@ public class OrderService {
         return false;
     }
 
+	public List<OrderResponse> getAllOrdersProcessed() {
+        List<Order> orders = orderRepository.findAll();
+        java.util.ArrayList<OrderResponse> responseList = new java.util.ArrayList<>();
+
+        if (orders == null) return responseList;
+
+        for (Order order : orders) {
+            if (order == null) continue;
+
+            // 1. Busca os itens da ordem de forma segura
+            List<OrderItem> items = java.util.Collections.emptyList();
+            if (order.getId() != null) {
+                items = orderItemRepository.findByOrderId(order.getId());
+            }
+            
+            double total = 0.0;
+            java.util.ArrayList<String> itemStrings = new java.util.ArrayList<>();
+
+            if (items != null) {
+                for (OrderItem item : items) {
+                    if (item == null) continue;
+                    double q = (item.getQuantity() != null) ? item.getQuantity().doubleValue() : 0.0;
+                    double p = (item.getUnitPrice() != null) ? item.getUnitPrice().doubleValue() : 0.0;
+                    total += (q * p);
+
+                    int pId = (item.getProductId() != null) ? item.getProductId() : 0;
+                    
+                    String nomeProduto = "Produto #" + pId;
+                    if (pId > 0 && productRepository != null) {
+                        try {
+                            nomeProduto = productRepository.findById(pId)
+                                    .map(Product::getProductName) 
+                                    .orElse("Produto #" + pId);
+                        } catch (Exception e) {
+                            // Se der erro ao buscar o produto, não quebra o loop
+                            nomeProduto = "Produto #" + pId;
+                        }
+                    }
+                    
+                    itemStrings.add((int)q + "x " + nomeProduto);
+                }
+            }
+            
+            String summary = String.join(", ", itemStrings);
+            if (summary.isEmpty()) {
+                summary = "Sem itens cadastrados";
+            }
+
+            // 2. Busca o endereço tratando falhas caso o ID não exista na tabela addresses
+            String fullAddress = "Retirada na loja ou endereço não encontrado";
+            if (order.getDeliveryAddressId() != null) {
+                try {
+                    Optional<Addresses> addrOpt = addressRepository.findById(order.getDeliveryAddressId());
+                    if (addrOpt.isPresent()) {
+                        Addresses addr = addrOpt.get();
+                        String rua = addr.getStreet() != null ? addr.getStreet() : "";
+                        String num = addr.getNumber() != null ? addr.getNumber() : "";
+                        String bairro = addr.getNeighborhood() != null ? addr.getNeighborhood() : "";
+                        String cidade = addr.getCity() != null ? addr.getCity() : "";
+                        String estado = addr.getState() != null ? addr.getState() : "";
+                        
+                        fullAddress = rua + ", " + num + " - " + bairro + ", " + cidade + " / " + estado;
+                    }
+                } catch (Exception e) {
+                    fullAddress = "Erro ao carregar endereço (ID: " + order.getDeliveryAddressId() + ")";
+                }
+            }
+
+            OrderResponse responseItem = OrderResponse.builder()
+                    .id(order.getId())
+                    .orderCode(order.getOrderCode() != null ? order.getOrderCode() : "SEM-CODIGO")
+                    .customerId(order.getCustomerId()) // ◄ ADICIONE ESSA LINHA PARA ENVIAR O ID AO FRONTEND!
+                    .status(order.getStatus() != null ? order.getStatus() : "PENDING")
+                    .totalPrice(total)
+                    .itemsSummary(summary)
+                    .deliveryAddress(fullAddress)
+                    .build();
+
+            responseList.add(responseItem);
+        }
+                    
+        return responseList;
+    }
+
     @Transactional
     public Order finalizeAndCreateOrder(OrderRequest dto) {
         UserAccount customer = userRepository.findById(dto.getCustomerId())
@@ -174,4 +258,8 @@ public class OrderService {
                     
         return responseList;
     }
+
+	public int updateStatusDirectly(Integer id, String status) {
+    	return orderRepository.updateStatusOnly(id, status);
+	}
 }
