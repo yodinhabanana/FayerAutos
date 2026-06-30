@@ -38,6 +38,12 @@ public class OrderController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 
+	@GetMapping("/customer/{customerId}")
+	public ResponseEntity<List<com.fayerautos.backend.dto.OrderResponse>> getOrdersByCustomerId(@PathVariable Integer customerId) {
+		List<com.fayerautos.backend.dto.OrderResponse> response = orderService.getOrdersByCustomerId(customerId);
+		return ResponseEntity.ok(response);
+	}
+
 	@PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody OrderRequest request) {
         Order newOrder = orderService.finalizeAndCreateOrder(request);
