@@ -21,8 +21,8 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      setUser(jwtDecode<MyJwtPayload>(token));
+    if (token && token.split(".").length === 3) {
+      setUser(jwtDecode(token));
     }
   }, []);
 
@@ -75,11 +75,10 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div>
         {/* Imagem */}
         <div className="mb-6 h-[200px] w-full relative">
-          <Image
-            src={product.imageUrl ?? null}
-            alt={product.productName}
-            fill
-            className="object-cover rounded-md"
+         <img
+            src={product.imageUrl}
+            alt="Product image"
+            style={{ width: "100%", height: "200px", objectFit: "cover" }}
           />
         </div>
 

@@ -38,9 +38,10 @@ export default function Header() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const rawToken = localStorage.getItem("token");
+    const token = rawToken?.replace("Bearer ", "");
 
-    if (token) {
+    if (token && token.split(".").length === 3) {
       setUser(jwtDecode<MyJwtPayload>(token));
     }
   }, []);
