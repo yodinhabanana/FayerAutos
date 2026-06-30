@@ -145,35 +145,33 @@ export default function CheckoutPage() {
     }
 
     try {
-      // Dispara uma ÚNICA requisição contendo o ID do cliente e os dados do endereço juntos
-      const response = await fetch(`http://localhost:8080/api/orders/${currentOrderId}/finalize`, {
-        method: "PUT",
+      const response = await fetch(`http://localhost:8080/api/orders`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${localStorage.getItem("token")}`
         },
         body: JSON.stringify({
           customerId: userId,
+          currentCartId: currentOrderId, // Passa o ID do carrinho (1) para o back-end limpá-lo
           cep: formData.tipoEntrega === "entrega" ? formData.cep : "00000-000",
           rua: formData.tipoEntrega === "entrega" ? formData.rua : "Retirada na Loja Matriz",
           numero: formData.tipoEntrega === "entrega" ? formData.numero : "S/N",
           bairro: formData.tipoEntrega === "entrega" ? formData.bairro : "Centro",
-          cidade: formData.tipoEntrega === "entrega" ? formData.cidade : "Unidade Principal"
+          city: formData.tipoEntrega === "entrega" ? formData.cidade : "Unidade Principal"
         })
       });
 
       if (!response.ok) {
         const errorText = await response.text().catch(() => "Sem detalhes fornecidos pelo servidor.");
         console.error("Erro retornado pelo backend Java:", errorText);
-        throw new Error("Erro ao finalizar a ordem no servidor.");
+        throw new Error("Erro ao gerar nova ordem no servidor.");
       }
 
-      // Limpa os estados locais após o sucesso
       setCartItems([]);
       localStorage.removeItem("currentCartId"); 
 
-      alert("Pedido finalizado com sucesso!");
-      router.push("/obrigado");
+      alert("Pedido realizado com sucesso!");
 
     } catch (err) {
       console.error("Erro ao finalizar o pedido:", err);
