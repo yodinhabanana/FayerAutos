@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import NoSearchHeader from "@/components/global/NoSearchHeader";
+import Header from "@/components/stock-management/Header";
 import Sidebar from "@/components/layout/Sidebar";
 
 // 1. Atualização da Interface para bater exatamente com as propriedades reais
@@ -68,7 +68,7 @@ export default function MeusPedidos() {
     <div className="w-full min-h-screen bg-white text-black font-sans select-none antialiased flex flex-col">
       
       {/* HEADER GLOBAL */}
-      <NoSearchHeader />
+      <Header />
 
       {/* CONTAINER DO CORPO (SIDEBAR + CONTEÚDO) */}
       <div className="flex flex-1 w-full">
