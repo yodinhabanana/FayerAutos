@@ -27,8 +27,8 @@ public class OrderController {
 	private final OrderService orderService;
 
 	@GetMapping
-	public ResponseEntity<List<Order>> getAllOrders() {
-		return ResponseEntity.ok(orderService.findAll());
+	public ResponseEntity<List<com.fayerautos.backend.dto.OrderResponse>> getAllOrders() {
+		return ResponseEntity.ok(orderService.getAllOrdersProcessed());
 	}
 
 	@GetMapping("/{id}")
@@ -61,6 +61,29 @@ public class OrderController {
 	public ResponseEntity<Void> deleteOrder(@PathVariable Integer id) {
 		if (orderService.deleteById(id)) {
 			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.notFound().build();
+	}
+
+	@PutMapping("/{id}/status")
+	public ResponseEntity<Void> updateOrderStatus(@PathVariable Integer id, @RequestBody java.util.Map<String, String> body) {
+		String newStatus = body.get("status");
+		
+		// Injeta o repository diretamente ou use um método no service que chame a query nova.
+		// Exemplo chamando direto se o repository estivesse aqui, mas como você usa orderService:
+		boolean updated = orderService.findById(id).map(order -> {
+			// Acesse o seu repository. Se o repository não estiver acessível aqui, 
+			// você pode criar um método no seu OrderService que apenas repasse para o repository.
+			return true;
+		}).orElse(false);
+
+		// Vamos fazer a alteração segura dentro do seu OrderService. 
+		// Para ficar mais fácil, altere o bloco do seu controller para isto:
+		
+		int rowsAffected = orderService.updateStatusDirectly(id, newStatus);
+		
+		if (rowsAffected > 0) {
+			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
 	}

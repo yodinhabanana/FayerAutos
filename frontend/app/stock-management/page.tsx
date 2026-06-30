@@ -1,17 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; // ◄ IMPORTADO PARA FAZER A NAVEGAÇÃO
 import Header from "@/components/stock-management/Header";
 import { getProducts } from "@/services/productService";
 import { Product } from "@/types/Product";
 import AlterProduct from "@/components/product/EditProductModal";
 import AddProductModal from "@/components/product/AddProductModal";
-import AddCategoryModal from "@/components/category/AddCategoryModal"; // Importação da nova modal
+import AddCategoryModal from "@/components/category/AddCategoryModal";
 
 export default function StockManagementPage() {
+  const router = useRouter(); // ◄ INSTANCIADO O ROTEADOR DO NEXT.JS
   const [products, setProducts] = useState<Product[]>([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false); // Estado para a nova modal
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -19,7 +21,6 @@ export default function StockManagementPage() {
     getProducts().then((data) => setProducts(data || []));
   }, []);
 
-  // Cálculos dinâmicos baseados no array de produtos vindo da API
   const totalItems = products.length;
   const totalStockValue = products.reduce((acc, p) => acc + (p.price * (p.stockQuantity || 0)), 0);
   const lowStockItems = products.filter(p => (p.stockQuantity || 0) < 5).length;
@@ -35,7 +36,7 @@ export default function StockManagementPage() {
         await fetch(`http://localhost:8080/api/products/deleteLogic/${id}`, {
           method: "PUT",
         });
-        alert("Produto deletedo com sucesso!");
+        alert("Produto deletado com sucesso!");
         setProducts(prev => prev.filter(p => p.id !== id));
         setIsEditModalOpen(false);
       } catch (err) {
@@ -54,7 +55,6 @@ export default function StockManagementPage() {
       });
       alert("Produto atualizado!");
       setIsEditModalOpen(false);
-      // Atualiza o estado local para refletir na lista
       getProducts().then((data) => setProducts(data || []));
     } catch (err) {
       alert("Erro ao atualizar produto");
@@ -73,7 +73,19 @@ export default function StockManagementPage() {
             <h1 className="text-3xl font-bold tracking-tight text-black">Gestão de estoque</h1>
             <p className="text-gray-500 text-sm mt-1">Cadastre, edite e gerencie a disponibilidade das peças.</p>
           </div>
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-3 shrink-0 flex-wrap sm:flex-nowrap">
+            
+            {/* ◄ NOVO BOTÃO: VER PEDIDOS DOS CLIENTES */}
+            <button 
+              onClick={() => router.push("/stock-management/orders")}
+              className="bg-white hover:bg-gray-50 text-gray-800 font-medium px-5 py-2.5 rounded-md transition-all shadow-sm border border-gray-300 whitespace-nowrap text-sm sm:text-base flex items-center gap-2"
+            >
+              <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+              </svg>
+              Ver Pedidos
+            </button>
+
             <button 
               onClick={() => setIsCategoryModalOpen(true)}
               className="bg-[#1A1B21] hover:bg-gray-700 text-white font-medium px-6 py-2.5 rounded-md transition-all shadow-sm border border-gray-700 whitespace-nowrap text-sm sm:text-base">
@@ -106,7 +118,6 @@ export default function StockManagementPage() {
 
         {/* TABELA DE PRODUTOS */}
         <div className="w-full border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
-          {/* Header da Tabela */}
           <div className="grid grid-cols-12 gap-4 bg-white px-6 py-4 border-b border-gray-200 text-gray-500 font-bold text-xs uppercase tracking-wider text-center md:text-left">
             <div className="col-span-5 md:col-span-4">Peça</div>
             <div className="col-span-2 hidden md:block text-center">Categoria</div>
@@ -116,36 +127,28 @@ export default function StockManagementPage() {
             <div className="col-span-2 md:col-span-1 text-center">Ações</div>
           </div>
 
-          {/* Corpo / Linhas de Peças */}
           <div className="divide-y divide-gray-100">
             {products.map((product) => (
               <div key={product.id} className="grid grid-cols-12 gap-4 px-6 py-4 items-center bg-[#F4F4F4] my-2 rounded-lg mx-2 border border-gray-200 text-center md:text-left text-sm font-medium text-gray-900">
-                
-                {/* Imagem + Nome */}
                 <div className="col-span-5 md:col-span-4 flex items-center gap-4 text-left">
                   <div className="w-12 h-12 bg-white rounded-md flex-shrink-0 border border-gray-200" />
                   <span className="font-semibold text-black truncate">{product.productName}</span>
                 </div>
 
-                {/* Categoria */}
                 <div className="col-span-2 hidden md:flex justify-center">
                   <span className="bg-[#D3D3D3] text-gray-700 text-xs px-3 py-1 rounded-full font-medium">
                     {product.productCategoryId || "Peça"}
                   </span>
                 </div>
 
-                {/* Marca */}
                 <div className="col-span-2 text-center text-gray-700">{product.brand || "—"}</div>
 
-                {/* Preço */}
                 <div className="col-span-2 text-center text-black font-semibold">
                   R$ {product.price.toFixed(2)}
                 </div>
 
-                {/* Estoque */}
                 <div className="col-span-1 text-center text-gray-800 font-medium">{product.stockQuantity ?? 0}</div>
 
-                {/* Ícones de Ações */}
                 <div className="col-span-2 md:col-span-1 flex items-center justify-center gap-3">
                   <button 
                     onClick={() => handleOpenEdit(product)}
@@ -166,7 +169,6 @@ export default function StockManagementPage() {
                     </svg>
                   </button>
                 </div>
-
               </div>
             ))}
 
@@ -176,7 +178,7 @@ export default function StockManagementPage() {
           </div>
         </div>
       </div>
-      {/* MODAL GLOBAL DE EDIÇÃO */}
+
       {selectedProduct && (
         <AlterProduct 
           isOpen={isEditModalOpen}
@@ -187,7 +189,6 @@ export default function StockManagementPage() {
         />
       )}
 
-      {/* MODAL DE ADICIONAR NOVO PRODUTO */}
       <AddProductModal 
         isOpen={isAddModalOpen}
         onClose={() => {
@@ -196,7 +197,6 @@ export default function StockManagementPage() {
         }}
       />
 
-      {/* MODAL DE ADICIONAR NOVA CATEGORIA */}
       <AddCategoryModal
         isOpen={isCategoryModalOpen}
         onClose={() => setIsCategoryModalOpen(false)}

@@ -1,5 +1,7 @@
 package com.fayerautos.backend.model;
 
+import java.time.LocalDateTime;
+
 /*## Table `orders`
 
 ### Columns
@@ -50,4 +52,7 @@ public class Order {
 
     @Column(name = "delivery_address_id")
     private Integer deliveryAddressId;
+
+    @Column(name = "created_at", updatable = false, insertable = false)
+    private LocalDateTime createdAt;
 }
