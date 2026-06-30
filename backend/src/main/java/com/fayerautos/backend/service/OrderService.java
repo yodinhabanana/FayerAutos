@@ -94,7 +94,7 @@ public class OrderService {
 		List<OrderItem> cartItems = orderItemRepository.findByOrderId(dto.getCurrentCartId());
 		
 		if (cartItems.isEmpty()) {
-			throw new RuntimeException("Cannot checkout an empty cart.");
+			throw new RuntimeException("Não pode esvaziar um carrinho vazio.");
 		}
 
 		// 5. Clona os itens do carrinho, trocando o orderId (1) para o ID da nova ordem criada
