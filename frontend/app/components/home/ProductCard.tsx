@@ -21,8 +21,8 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      setUser(jwtDecode<MyJwtPayload>(token));
+    if (token && token.split(".").length === 3) {
+      setUser(jwtDecode(token));
     }
   }, []);
 

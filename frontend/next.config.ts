@@ -9,6 +9,16 @@ const nextConfig: NextConfig = {
         port: "8080",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "http2.mlstatic.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "tse4.mm.bing.net",
+        pathname: "/**",
+      },
     ],
   },
 };

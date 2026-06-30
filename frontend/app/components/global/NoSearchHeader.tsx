@@ -10,9 +10,10 @@ export default function Header() {
   const [user, setUser] = useState<MyJwtPayload | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const rawToken = localStorage.getItem("token");
+    const token = rawToken?.replace("Bearer ", "");
 
-    if (token) {
+    if (token && token.split(".").length === 3) {
       setUser(jwtDecode<MyJwtPayload>(token));
     }
   }, []);
