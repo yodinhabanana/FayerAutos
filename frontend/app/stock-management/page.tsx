@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // ◄ IMPORTADO PARA FAZER A NAVEGAÇÃO
+import { useRouter } from "next/navigation";
 import Header from "@/components/stock-management/Header";
 import { getProducts } from "@/services/productService";
 import { Product } from "@/types/Product";
@@ -10,7 +10,7 @@ import AddProductModal from "@/components/product/AddProductModal";
 import AddCategoryModal from "@/components/category/AddCategoryModal";
 
 export default function StockManagementPage() {
-  const router = useRouter(); // ◄ INSTANCIADO O ROTEADOR DO NEXT.JS
+  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
@@ -74,8 +74,6 @@ export default function StockManagementPage() {
             <p className="text-gray-500 text-sm mt-1">Cadastre, edite e gerencie a disponibilidade das peças.</p>
           </div>
           <div className="flex items-center gap-3 shrink-0 flex-wrap sm:flex-nowrap">
-            
-            {/* ◄ NOVO BOTÃO: VER PEDIDOS DOS CLIENTES */}
             <button 
               onClick={() => router.push("/stock-management/orders")}
               className="bg-white hover:bg-gray-50 text-gray-800 font-medium px-5 py-2.5 rounded-md transition-all shadow-sm border border-gray-300 whitespace-nowrap text-sm sm:text-base flex items-center gap-2"
@@ -130,8 +128,24 @@ export default function StockManagementPage() {
           <div className="divide-y divide-gray-100">
             {products.map((product) => (
               <div key={product.id} className="grid grid-cols-12 gap-4 px-6 py-4 items-center bg-[#F4F4F4] my-2 rounded-lg mx-2 border border-gray-200 text-center md:text-left text-sm font-medium text-gray-900">
+                
+                {/* Ajustado: Bloco da Peça com Imagem embutida */}
                 <div className="col-span-5 md:col-span-4 flex items-center gap-4 text-left">
-                  <div className="w-12 h-12 bg-white rounded-md flex-shrink-0 border border-gray-200" />
+                  <div className="w-12 h-12 bg-white rounded-md flex-shrink-0 border border-gray-200 overflow-hidden flex items-center justify-center">
+                    {product.imageUrl ? (
+                      <img 
+                        src={product.imageUrl} 
+                        alt={product.productName} 
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Caso o link quebre ou não exista, põe um ícone cinza genérico
+                          (e.target as HTMLImageElement).src = "https://placehold.co/100x100?text=🔧";
+                        }}
+                      />
+                    ) : (
+                      <span className="text-[10px] text-gray-400 font-medium">Sem foto</span>
+                    )}
+                  </div>
                   <span className="font-semibold text-black truncate">{product.productName}</span>
                 </div>
 

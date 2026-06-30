@@ -76,13 +76,13 @@ export default function EditProductModal({
   const handleSave = () => {
     onUpdate({
       productName: name,
-      price: Number(price), // Converte para número na hora de salvar
+      price: Number(price), 
       description: description,
       stockQuantity: Number(stockQuantity),
       productCategoryId: category ? Number(category) : null,
       brand: brand,
       sku: product.sku,
-      url: imageUrl || null, // Garante o envio correto da nova URL ou null se apagada
+      imageUrl: imageUrl || null, // ◄ ALTERADO DE "url" PARA "imageUrl"
     });
   };
 
