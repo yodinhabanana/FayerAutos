@@ -64,6 +64,9 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
           <Link href="/contato" onClick={onClose} className="hover:text-red-500 transition-colors py-2 border-b border-gray-800/50">
             Contato
           </Link>
+          <Link href="/my-orders" onClick={onClose} className="hover:text-red-500 transition-colors py-2 border-b border-gray-800/50">
+            Meus Pedidos
+          </Link>
 
             {user?.role === 1 && (
                 <>
